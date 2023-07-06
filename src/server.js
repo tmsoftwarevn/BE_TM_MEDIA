@@ -1,0 +1,19 @@
+import express from "express";
+import configViewEngine from "./config/viewEngine";
+import initApiRouter from "./route/api";
+import bodyParser from "body-parser";
+
+const app = express();
+require("dotenv").config();
+const PORT = process.env.PORT || 8000;
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+configViewEngine(app);
+
+initApiRouter(app);
+
+app.listen(PORT, () => {
+  console.log("run app", +PORT);
+});
