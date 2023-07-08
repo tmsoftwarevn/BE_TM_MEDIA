@@ -4,12 +4,14 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       User.hasMany(models.Order);
-      User.hasMany(models.infoDelivery);
+      User.hasMany(models.infoDelivery, {
+        foreignKey: "idUser",
+      });
     }
   }
   User.init(
     {
-      username: DataTypes.STRING,
+      fullName: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
       type: {
@@ -20,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         defaultValue: "USER",
       },
-      refreshToken: DataTypes.STRING,
+      refreshToken: DataTypes.TEXT,
     },
     {
       sequelize,
