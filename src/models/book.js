@@ -1,4 +1,5 @@
 "use strict";
+import { v4 as uuidv4 } from "uuid";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Book extends Model {
@@ -17,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       sold: DataTypes.INTEGER,
       quantity: DataTypes.INTEGER,
       rate: DataTypes.INTEGER,
-      idCategory: DataTypes.STRING,
+      idCategory: DataTypes.INTEGER,
     },
     {
       sequelize,

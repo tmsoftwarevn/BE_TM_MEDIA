@@ -83,7 +83,7 @@ const newAccessTokenFromRT = async (req, res) => {
       });
     } else {
       return res.status(400).json({
-        message: "Không tìm thấy refresh token",
+        message: "Không tìm thấy refresh token ở cookie",
         EC: -1,
       });
     }

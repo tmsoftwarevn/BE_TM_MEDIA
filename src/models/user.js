@@ -1,12 +1,11 @@
 "use strict";
+import { v4 as uuidv4 } from "uuid";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       User.hasMany(models.Order);
-      User.hasMany(models.infoDelivery, {
-        foreignKey: "idUser",
-      });
+      User.hasMany(models.infoDelivery);
     }
   }
   User.init(
@@ -29,5 +28,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "User",
     }
   );
+
   return User;
 };

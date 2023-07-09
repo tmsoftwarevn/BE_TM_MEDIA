@@ -5,11 +5,12 @@ require("dotenv").config();
 const postLogin = async (req, res) => {
   try {
     let data = await userService.loginUserService(req.body);
-    if (data && data.DT) {
+    if (data && data.user) {
       // thanh cong
-      let access_token = checkMiddleware.createJWT(data.DT);
-      let refresh_token = checkMiddleware.createJWTRefresh(data.DT);
-      await jwtService.saveRefreshToken(data.DT, refresh_token);
+      console.log("data", data.user);
+      let access_token = checkMiddleware.createJWT(data.user);
+      let refresh_token = checkMiddleware.createJWTRefresh(data.user);
+      await jwtService.saveRefreshToken(data.user, refresh_token);
 
       res.cookie("refreshToken", refresh_token, {
         maxAge: parseInt(process.env.MAX_AGE_REFRESH_TOKEN),
@@ -20,7 +21,7 @@ const postLogin = async (req, res) => {
       });
 
       return res.status(200).json({
-        data: data.DT,
+        data: data.user,
         access_token: access_token,
         EC: 1,
       });
@@ -59,13 +60,16 @@ const postLogout = (req, res) => {
 const postRegisterUser = async (req, res) => {
   try {
     let data = await userService.registerUserService(req.body);
-    if (data && data.DT) {
-      return res.status(200).json({
-        data: data.DT,
+    if (data && data.user) {
+      return res.status(201).json({
+        data: data,
         EC: 1,
       });
     } else {
-      return res;
+      return res.status(400).json({
+        message: data.message,
+        EC: -1,
+      });
     }
   } catch (error) {
     console.log(error);
@@ -75,4 +79,69 @@ const postRegisterUser = async (req, res) => {
     });
   }
 };
-export default { postLogin, postLogout, postRegisterUser };
+
+const getUserAdress = async (req, res) => {
+  try {
+    let data = await jwtService.getInfoDelivery();
+    if (data) {
+      return res.status(200).json({
+        data: data,
+        EC: 1,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Some thing wrong server",
+      EC: -1,
+    });
+  }
+};
+
+const getListUser = async (req, res) => {
+  try {
+    let { current, pageSize, field, sort, searchName, searchEmail } = req.query;
+    console.log("check query", req.query);
+    let data = await userService.getListUserService(
+      current,
+      pageSize,
+      field,
+      sort,
+      searchName,
+      searchEmail
+    );
+    if (data) {
+      return res.status(200).json({
+        data: {
+          EC: 1,
+          meta: {
+            current: current,
+            pageSize: pageSize,
+            pages: Math.ceil(+data.total / +pageSize),
+            total: data.total,
+          },
+          result: data.list,
+        },
+      });
+    } else {
+      return res.status(500).json({
+        message: "Something wrong in server",
+        EC: -1,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Something wrong in server",
+      EC: -1,
+    });
+  }
+};
+
+export default {
+  postLogin,
+  postLogout,
+  postRegisterUser,
+  getUserAdress,
+  getListUser,
+};

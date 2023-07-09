@@ -9,7 +9,7 @@
       "freezeTableName": true
     },
     "logging": false, 
-    "operatorsAliases": false,
+    "operatorsAliases": "0",
     "timezone": "+07:00"
     
   },
