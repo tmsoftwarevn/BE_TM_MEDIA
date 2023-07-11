@@ -49,7 +49,7 @@ const checkJWT = (req, res, next) => {
       let access_token = headerToken;
       let decoded = verifyToken(access_token);
       if (decoded) {
-        req.user = decoded;
+        req.account = decoded;
         return next();
       } else {
         return res.status(401).json({

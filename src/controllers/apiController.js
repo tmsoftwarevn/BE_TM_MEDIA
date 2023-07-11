@@ -1,13 +1,12 @@
 import userService from "../service/userService";
 import jwtService from "../service/jwtService";
 import checkMiddleware from "../middleware/checkMiddleware";
+import socialService from "../service/socialService";
 require("dotenv").config();
 const postLogin = async (req, res) => {
   try {
     let data = await userService.loginUserService(req.body);
     if (data && data.user) {
-      // thanh cong
-      console.log("data", data.user);
       let access_token = checkMiddleware.createJWT(data.user);
       let refresh_token = checkMiddleware.createJWTRefresh(data.user);
       await jwtService.saveRefreshToken(data.user, refresh_token);

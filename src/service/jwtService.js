@@ -40,7 +40,7 @@ const getInfoUser = async (user) => {
 };
 const getAccount = async (req, res) => {
   try {
-    let infoUser = await getInfoUser(req.user);
+    let infoUser = await getInfoUser(req.account);
     return res.status(200).json({
       EC: 1,
       data: infoUser,
