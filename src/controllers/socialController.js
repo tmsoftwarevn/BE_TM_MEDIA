@@ -13,7 +13,7 @@ const configLoginWithSocial = () => {
         callbackURL: process.env.GOOGLE_APP_REDIRECT_LOGIN,
       },
       async function (accessToken, refreshToken, profile, done) {
-        const typeAcc = "GOOGLE";
+        const typeAcc = "SOCIAL";
         let drawData = {
           username: profile.displayName,
           email:
@@ -23,6 +23,7 @@ const configLoginWithSocial = () => {
         };
         let user = await socialService.createUserSocial(drawData, typeAcc);
         let info = await jwtService.getInfoUser(user);
+        console.log("info", info);
         done(null, info);
       }
     )
@@ -34,10 +35,10 @@ const configLoginWithSocial = () => {
         clientID: process.env.FACEBOOK_APP_CLIENT_ID,
         clientSecret: process.env.FACEBOOK_APP_CLIENT_SECRET,
         callbackURL: process.env.FACEBOOK_APP_REDIRECT_LOGIN,
-        profileFields: ["id", "emails", "displayName"],
+        profileFields: ["id", "displayName", "emails"],
       },
-      async function (accessToken, refreshToken, profile, cb) {
-        const typeAcc = "FACEBOOK";
+      async function (accessToken, refreshToken, profile, done) {
+        const typeAcc = "SOCIAL";
         let drawData = {
           username: profile.displayName,
           email:
@@ -45,22 +46,18 @@ const configLoginWithSocial = () => {
               ? profile.emails[0].value
               : profile.id,
         };
-
         let user = await socialService.createUserSocial(drawData, typeAcc);
         let info = await jwtService.getInfoUser(user);
-        console.log("bugggggggggg");
         done(null, info);
       }
     )
   );
 
   passport.serializeUser((user, done) => {
-    console.log("seriiiiii", user);
     done(null, user);
   });
 
   passport.deserializeUser((user, done) => {
-    console.log("deserrrrrrrr", user);
     done(null, user);
   });
 };

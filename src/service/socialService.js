@@ -25,7 +25,6 @@ const createUserSocial = async (drawData, type) => {
 
 const createAcessTokenSocial = async (req, res) => {
   try {
-    console.log("accccc ", req.user);
     if (req.user) {
       let user = req.user;
       let access_token = checkMiddleware.createJWT(user);

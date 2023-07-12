@@ -137,10 +137,24 @@ const getListUser = async (req, res) => {
   }
 };
 
+const delelteUser = async (req, res) => {
+  let data = await userService.deleteUserService(req.params.id);
+  if (data && data.DT) {
+    return res.status(200).json({
+      data: "Delete success",
+      EC: 1,
+    });
+  } else {
+    return res.status(400).json({
+      message: "wwrong some thing",
+    });
+  }
+};
 export default {
   postLogin,
   postLogout,
   postRegisterUser,
   getUserAdress,
   getListUser,
+  delelteUser,
 };

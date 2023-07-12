@@ -1,9 +1,11 @@
 "use strict";
-import { v4 as uuidv4 } from "uuid";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Book extends Model {
     static associate(models) {
+      // {
+      //   foreignKey: "idCategory",
+      // }
       Book.belongsTo(models.Category);
       Book.hasOne(models.OrderDetail);
     }
@@ -12,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       author: DataTypes.STRING,
       thumbnail: DataTypes.STRING,
-      slider: DataTypes.STRING,
+      slider: DataTypes.JSON,
       mainText: DataTypes.STRING,
       price: DataTypes.INTEGER,
       sold: DataTypes.INTEGER,

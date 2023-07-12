@@ -179,4 +179,30 @@ const getListUserService = async (
   }
 };
 
-export default { loginUserService, registerUserService, getListUserService };
+const deleteUserService = async (userId) => {
+  try {
+    let del = await db.User.destroy({
+      where: { id: userId },
+    });
+    if (del) {
+      return {
+        DT: "delete success",
+      };
+    } else {
+      return {
+        message: "Somw thing Wrong",
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      message: "Some thing wrong",
+    };
+  }
+};
+export default {
+  loginUserService,
+  registerUserService,
+  getListUserService,
+  deleteUserService,
+};

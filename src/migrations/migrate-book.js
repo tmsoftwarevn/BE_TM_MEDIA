@@ -1,5 +1,4 @@
 "use strict";
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -21,7 +20,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       slider: {
-        type: Sequelize.STRING,
+        type: Sequelize.JSON,
       },
       mainText: {
         type: Sequelize.STRING,
