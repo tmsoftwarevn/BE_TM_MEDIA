@@ -10,19 +10,22 @@ module.exports = {
         autoIncrement: true,
         allowNull: false,
       },
-      status: {
-        type: Sequelize.STRING,
+      totalProduct: {
+        type: Sequelize.INTEGER,
       },
       payment: {
         type: Sequelize.STRING,
       },
-      totalFinal: {
+      total: {
         type: Sequelize.INTEGER,
       },
       idInfoDelivery: {
         type: Sequelize.INTEGER,
       },
       idUser: {
+        type: Sequelize.INTEGER,
+      },
+      idStatus: {
         type: Sequelize.INTEGER,
       },
       createdAt: {

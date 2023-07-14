@@ -100,7 +100,7 @@ const getUserAdress = async (req, res) => {
 const getListUser = async (req, res) => {
   try {
     let { current, pageSize, field, sort, searchName, searchEmail } = req.query;
-    console.log("check query", req.query);
+
     let data = await userService.getListUserService(
       current,
       pageSize,

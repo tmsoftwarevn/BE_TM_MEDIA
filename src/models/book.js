@@ -3,11 +3,12 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Book extends Model {
     static associate(models) {
-      // {
-      //   foreignKey: "idCategory",
-      // }
-      Book.belongsTo(models.Category);
-      Book.hasOne(models.OrderDetail);
+      Book.belongsTo(models.Category, {
+        foreignKey: "idCategory",
+      });
+      Book.hasMany(models.OrderDetail, {
+        foreignKey: "idBook",
+      });
     }
   }
   Book.init(

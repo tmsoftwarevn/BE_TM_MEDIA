@@ -6,16 +6,17 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Order.belongsTo(models.infoDelivery);
       Order.belongsTo(models.User);
-      Order.hasOne(models.OrderDetail);
+      Order.hasMany(models.OrderDetail);
     }
   }
   Order.init(
     {
-      status: DataTypes.STRING,
+      totalProduct: DataTypes.INTEGER,
       payment: DataTypes.STRING,
-      totalFinal: DataTypes.INTEGER,
+      total: DataTypes.INTEGER,
       idInfoDelivery: DataTypes.INTEGER,
       idUser: DataTypes.INTEGER,
+      idStatus: DataTypes.INTEGER,
     },
     {
       sequelize,

@@ -8,6 +8,8 @@ import passport from "passport";
 import socialService from "../service/socialService";
 import postFileUploadImage from "../controllers/fileController";
 import bookController from "../controllers/bookController";
+import categoryService from "../service/categoryService";
+import categoryController from "../controllers/categoryController";
 require("dotenv").config();
 const initApiRouter = (app) => {
   router.get("/", (req, res) => {
@@ -72,9 +74,16 @@ const initApiRouter = (app) => {
   );
 
   router.post("/file/upload", postFileUploadImage);
-  router.post("/book/create", bookController.postCreateBook);
-  router.get("/book/:id", bookController.getInfoBook);
 
+  router.post("/book", bookController.postCreateBook);
+  router.get("/book/:id", bookController.getInfoBook);
+  router.get("/book", bookController.getListBookPaginateAdmin);
+  router.get("/home/book", bookController.getListBookHome);
+  router.delete("/book/delete/:id", bookController.deleteBook);
+  router.put("/book/:id", bookController.updateBook);
+
+  router.post("/category/create", categoryController.postCreateCategory);
+  router.get("/database/category", categoryController.getListCategory);
   router.get("/user/address");
   return app.use("/api/v1", router);
 };
