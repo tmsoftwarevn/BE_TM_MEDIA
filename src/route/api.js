@@ -3,13 +3,12 @@ const router = express.Router();
 import apiController from "../controllers/apiController";
 import checkMiddleware from "../middleware/checkMiddleware";
 import jwtService from "../service/jwtService";
-import userService from "../service/userService";
 import passport from "passport";
 import socialService from "../service/socialService";
 import postFileUploadImage from "../controllers/fileController";
 import bookController from "../controllers/bookController";
-import categoryService from "../service/categoryService";
 import categoryController from "../controllers/categoryController";
+import deliveryController from "../controllers/deliveryController";
 require("dotenv").config();
 const initApiRouter = (app) => {
   router.get("/", (req, res) => {
@@ -84,7 +83,11 @@ const initApiRouter = (app) => {
 
   router.post("/category/create", categoryController.postCreateCategory);
   router.get("/database/category", categoryController.getListCategory);
-  router.get("/user/address");
+
+  router.post("/delivery", deliveryController.postCreateInfoDelivery);
+  router.get("/delivery/:id", deliveryController.getInfoDelivery);
+  router.put("/delivery/:id", deliveryController.putInfoDelivery);
+
   return app.use("/api/v1", router);
 };
 

@@ -1,5 +1,5 @@
 import { Op } from "sequelize";
-import db from "../models/index";
+import db, { sequelize } from "../models/index";
 
 const createBookService = async (book) => {
   let info = await db.Book.create({
@@ -100,7 +100,7 @@ const getListBookService = async (
   limit,
   field,
   sort,
-  author,
+  mainText,
   price,
   category
 ) => {
@@ -111,8 +111,8 @@ const getListBookService = async (
       where: {
         [Op.and]: [
           {
-            author: {
-              [Op.like]: author ? `%${author}%` : "%%",
+            mainText: {
+              [Op.like]: mainText ? `%${mainText}%` : "%%",
             },
           },
           {
@@ -136,9 +136,18 @@ const getListBookService = async (
       where: {
         [Op.and]: [
           {
-            author: {
-              [Op.like]: author ? `%${author}%` : "%%",
+            mainText: {
+              [Op.like]: mainText ? `%${mainText}%` : "%%",
             },
+            // mainText: mainText
+            //   ? sequelize.where(
+            //       sequelize.fn("LOWER", sequelize.col("mainText")),
+            //       "LIKE",
+            //       "%" + mainText.toLowerCase() + "%"
+            //     )
+            //   : {
+            //       [Op.like]: "%%",
+            //     },
           },
           {
             price: {

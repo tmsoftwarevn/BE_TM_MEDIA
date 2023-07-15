@@ -4,9 +4,18 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Order extends Model {
     static associate(models) {
-      Order.belongsTo(models.infoDelivery);
-      Order.belongsTo(models.User);
-      Order.hasMany(models.OrderDetail);
+      Order.belongsTo(models.infoDelivery, {
+        foreignKey: "idInfoDelivery",
+      });
+      Order.belongsTo(models.User, {
+        foreignKey: "idUser",
+      });
+      Order.hasMany(models.OrderDetail, {
+        foreignKey: "idOrder",
+      });
+      Order.belongsTo(models.Status, {
+        foreignKey: "idStatus",
+      });
     }
   }
   Order.init(

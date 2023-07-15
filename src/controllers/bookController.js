@@ -56,13 +56,14 @@ const updateBook = async (req, res) => {
   }
 };
 const getListBookPaginateAdmin = async (req, res) => {
-  let { current, pageSize, field, sort, author, price, category } = req.query;
+  let { current, pageSize, field, sort, mainText, price, category } = req.query;
+  console.log("apiiiii", req.query);
   let data = await bookService.getListBookService(
     current,
     pageSize,
     field,
     sort,
-    author,
+    mainText,
     price,
     category
   );

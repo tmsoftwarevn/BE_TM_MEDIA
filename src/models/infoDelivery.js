@@ -7,13 +7,15 @@ module.exports = (sequelize, DataTypes) => {
       infoDelivery.belongsTo(models.User, {
         foreignKey: "idUser",
       });
-      infoDelivery.hasMany(models.Order);
+      infoDelivery.hasMany(models.Order, {
+        foreignKey: "idInfoDelivery",
+      });
     }
   }
   infoDelivery.init(
     {
       fullname: DataTypes.STRING,
-      phone: DataTypes.INTEGER,
+      phone: DataTypes.STRING,
       address: DataTypes.STRING,
       idUser: DataTypes.INTEGER,
     },

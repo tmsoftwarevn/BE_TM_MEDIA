@@ -42,9 +42,9 @@ connectDB();
 initApiRouter(app);
 configLoginWithSocial();
 
-app.get("/images/book/:id", (req, res) => {
-  res.render("image.ejs", { urlImage: req.params.id });
-});
+// app.get("/images/book/:id", (req, res) => {
+//   res.render("image.ejs", { urlImage: req.params.id });
+// });
 app.listen(PORT, () => {
   console.log("run app", +PORT);
 });
