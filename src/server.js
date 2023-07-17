@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import configLoginWithSocial from "./controllers/socialController";
 import passport from "passport";
 import session from "express-session";
+//import cors from "./config/cors";
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
 
@@ -29,6 +30,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+//cors(app);
 //////
 app.use(
   cors({

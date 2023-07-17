@@ -1,3 +1,43 @@
-const postCreateOrder = async (req, res) => {};
+import orderService from "../service/orderService";
 
-export default postCreateOrder;
+const postCreateOrder = async (req, res) => {
+  let data = await orderService.createOrderService(req.body);
+  if (data && data.DT) {
+    return res.status(201).json({
+      message: "Create success",
+      data: data.DT,
+    });
+  } else {
+    return res.status(400).json({
+      message: "Some thing wrong",
+    });
+  }
+};
+const fetchOrderHistory = async (req, res) => {
+  const { current, pageSize } = req.query;
+  let data = await orderService.getOrderHistoryUser(
+    req.params.id,
+    current,
+    pageSize
+  );
+  if (data && data.list) {
+    return res.status(200).json({
+      data: {
+        EC: 1,
+        meta: {
+          current: current,
+          pageSize: pageSize,
+          pages: Math.ceil(+data.total / +pageSize),
+          total: data.total,
+        },
+        result: data.list,
+      },
+    });
+  } else {
+    return res.status(400).json({
+      message: "Something wrong ",
+      EC: -1,
+    });
+  }
+};
+export default { postCreateOrder, fetchOrderHistory };

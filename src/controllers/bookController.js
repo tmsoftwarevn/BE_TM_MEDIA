@@ -57,7 +57,6 @@ const updateBook = async (req, res) => {
 };
 const getListBookPaginateAdmin = async (req, res) => {
   let { current, pageSize, field, sort, mainText, price, category } = req.query;
-  console.log("apiiiii", req.query);
   let data = await bookService.getListBookService(
     current,
     pageSize,
@@ -110,6 +109,22 @@ const getListBookHome = async (req, res) => {
     });
   }
 };
+const putBookAfterOrder = async (req, res) => {
+  let data = await bookService.updateBookAfterOrder(
+    +req.body.id,
+    +req.body.count
+  );
+  if (data && data.DT) {
+    return res.status(200).json({
+      EC: 1,
+      data: data.DT,
+    });
+  } else {
+    return res.status(400).json({
+      message: "Có lỗi xảy ra",
+    });
+  }
+};
 export default {
   postCreateBook,
   getInfoBook,
@@ -117,4 +132,5 @@ export default {
   deleteBook,
   updateBook,
   getListBookHome,
+  putBookAfterOrder,
 };

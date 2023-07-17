@@ -139,15 +139,6 @@ const getListBookService = async (
             mainText: {
               [Op.like]: mainText ? `%${mainText}%` : "%%",
             },
-            // mainText: mainText
-            //   ? sequelize.where(
-            //       sequelize.fn("LOWER", sequelize.col("mainText")),
-            //       "LIKE",
-            //       "%" + mainText.toLowerCase() + "%"
-            //     )
-            //   : {
-            //       [Op.like]: "%%",
-            //     },
           },
           {
             price: {
@@ -217,6 +208,24 @@ const getListBookHomeService = async (page, limit) => {
     console.log(error);
   }
 };
+
+const updateBookAfterOrder = async (bookId, count) => {
+  const selector = {
+    where: { id: bookId },
+  };
+  const values = {
+    sold: sequelize.literal(`sold + ${count}`),
+    quantity: sequelize.literal(`quantity - ${count}`),
+  };
+
+  let u = await db.Book.update(values, selector);
+  if (u) {
+    return {
+      DT: u,
+    };
+  }
+};
+
 export default {
   createBookService,
   getInfoBookService,
@@ -224,4 +233,5 @@ export default {
   deleteBookService,
   updateBookService,
   getListBookHomeService,
+  updateBookAfterOrder,
 };

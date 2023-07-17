@@ -9,6 +9,8 @@ import postFileUploadImage from "../controllers/fileController";
 import bookController from "../controllers/bookController";
 import categoryController from "../controllers/categoryController";
 import deliveryController from "../controllers/deliveryController";
+import orderController from "../controllers/orderController";
+import orderDetailController from "../controllers/orderDetailController";
 require("dotenv").config();
 const initApiRouter = (app) => {
   router.get("/", (req, res) => {
@@ -80,6 +82,7 @@ const initApiRouter = (app) => {
   router.get("/home/book", bookController.getListBookHome);
   router.delete("/book/delete/:id", bookController.deleteBook);
   router.put("/book/:id", bookController.updateBook);
+  router.put("/updateBook", bookController.putBookAfterOrder);
 
   router.post("/category/create", categoryController.postCreateCategory);
   router.get("/database/category", categoryController.getListCategory);
@@ -87,6 +90,11 @@ const initApiRouter = (app) => {
   router.post("/delivery", deliveryController.postCreateInfoDelivery);
   router.get("/delivery/:id", deliveryController.getInfoDelivery);
   router.put("/delivery/:id", deliveryController.putInfoDelivery);
+
+  router.post("/order", orderController.postCreateOrder);
+  router.get("/user/orderHistory/:id", orderController.fetchOrderHistory);
+
+  router.post("/orderDetail", orderDetailController.postOrderDetail);
 
   return app.use("/api/v1", router);
 };
