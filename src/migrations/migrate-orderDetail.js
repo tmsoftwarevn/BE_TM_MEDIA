@@ -13,7 +13,7 @@ module.exports = {
       quantity: {
         type: Sequelize.INTEGER,
       },
-      totalPrice: {
+      price: {
         type: Sequelize.INTEGER,
       },
       idOrder: {

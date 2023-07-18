@@ -4,9 +4,6 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Order extends Model {
     static associate(models) {
-      Order.belongsTo(models.infoDelivery, {
-        foreignKey: "idInfoDelivery",
-      });
       Order.belongsTo(models.User, {
         foreignKey: "idUser",
       });
@@ -23,9 +20,11 @@ module.exports = (sequelize, DataTypes) => {
       totalProduct: DataTypes.INTEGER,
       payment: DataTypes.STRING,
       total: DataTypes.INTEGER,
-      idInfoDelivery: DataTypes.INTEGER,
       idUser: DataTypes.INTEGER,
       idStatus: DataTypes.INTEGER,
+      fullname: DataTypes.STRING,
+      phone: DataTypes.STRING,
+      address: DataTypes.STRING,
     },
     {
       sequelize,

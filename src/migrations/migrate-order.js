@@ -19,14 +19,20 @@ module.exports = {
       total: {
         type: Sequelize.INTEGER,
       },
-      idInfoDelivery: {
-        type: Sequelize.INTEGER,
-      },
       idUser: {
         type: Sequelize.INTEGER,
       },
       idStatus: {
         type: Sequelize.INTEGER,
+      },
+      fullname: {
+        type: Sequelize.STRING,
+      },
+      phone: {
+        type: Sequelize.STRING,
+      },
+      address: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

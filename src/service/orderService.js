@@ -4,9 +4,11 @@ const createOrderService = async (order) => {
     totalProduct: order.totalProduct,
     payment: order.payment,
     total: order.total,
-    idInfoDelivery: order.idInfoDelivery,
     idUser: order.idUser,
     idStatus: order.idStatus,
+    fullname: order.fullname,
+    phone: order.phone,
+    address: order.address,
   });
   c = c.get({ plain: true });
   if (c) {
@@ -19,10 +21,23 @@ const createOrderService = async (order) => {
 const getOrderHistoryUser = async (idUser, page, limit) => {
   page = +page;
   limit = +limit;
-  let total = await db.Order.count({});
+  let total = await db.Order.count({
+    include: [
+      {
+        model: db.User,
+        where: { id: idUser },
+        attributes: [],
+      },
+      {
+        model: db.Status,
+        attributes: [],
+      },
+    ],
+  });
   let list = await db.Order.findAll({
     offset: (page - 1) * limit,
     limit: limit,
+    order: [["createdAt", "DESC"]],
     attributes: [
       "totalProduct",
       "payment",
@@ -30,16 +45,21 @@ const getOrderHistoryUser = async (idUser, page, limit) => {
       "id",
       "createdAt",
       "Status.status",
+      "address",
+      "phone",
+      "fullname",
     ],
-    include: {
-      model: db.User,
-      where: { id: idUser },
-      attributes: [],
-    },
-    include: {
-      model: db.Status,
-      attributes: [],
-    },
+    include: [
+      {
+        model: db.User,
+        where: { id: idUser },
+        attributes: [],
+      },
+      {
+        model: db.Status,
+        attributes: [],
+      },
+    ],
     raw: true,
   });
   if (list) {

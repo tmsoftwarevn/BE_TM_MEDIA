@@ -95,6 +95,7 @@ const initApiRouter = (app) => {
   router.get("/user/orderHistory/:id", orderController.fetchOrderHistory);
 
   router.post("/orderDetail", orderDetailController.postOrderDetail);
+  router.get("/orderDetail/:id", orderDetailController.getOrderDetail);
 
   return app.use("/api/v1", router);
 };

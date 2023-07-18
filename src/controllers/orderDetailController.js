@@ -14,4 +14,17 @@ const postOrderDetail = async (req, res) => {
   }
 };
 
-export default { postOrderDetail };
+const getOrderDetail = async (req, res) => {
+  let data = await orderDetailService.getOrderDetailService(+req.params.id);
+  if (data && data.list) {
+    return res.status(200).json({
+      data: data.list,
+    });
+  } else {
+    return res.status(400).json({
+      message: "Something wrong ",
+      EC: -1,
+    });
+  }
+};
+export default { postOrderDetail, getOrderDetail };
