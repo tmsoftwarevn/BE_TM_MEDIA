@@ -11,6 +11,7 @@ import categoryController from "../controllers/categoryController";
 import deliveryController from "../controllers/deliveryController";
 import orderController from "../controllers/orderController";
 import orderDetailController from "../controllers/orderDetailController";
+import statusController from "../controllers/statusController";
 require("dotenv").config();
 const initApiRouter = (app) => {
   router.get("/", (req, res) => {
@@ -74,28 +75,64 @@ const initApiRouter = (app) => {
     apiController.delelteUser
   );
 
-  router.post("/file/upload", postFileUploadImage);
+  router.post("/file/upload", checkMiddleware.checkJWT, postFileUploadImage);
 
-  router.post("/book", bookController.postCreateBook);
+  router.post("/book", checkMiddleware.checkJWT, bookController.postCreateBook);
   router.get("/book/:id", bookController.getInfoBook);
-  router.get("/book", bookController.getListBookPaginateAdmin);
+  router.get(
+    "/book",
+    checkMiddleware.checkJWT,
+    bookController.getListBookPaginateAdmin
+  );
   router.get("/home/book", bookController.getListBookHome);
-  router.delete("/book/delete/:id", bookController.deleteBook);
-  router.put("/book/:id", bookController.updateBook);
+  router.delete(
+    "/book/delete/:id",
+    checkMiddleware.checkJWT,
+    bookController.deleteBook
+  );
+  router.put("/book/:id", checkMiddleware.checkJWT, bookController.updateBook);
   router.put("/updateBook", bookController.putBookAfterOrder);
 
-  router.post("/category/create", categoryController.postCreateCategory);
+  router.post(
+    "/category/create",
+    checkMiddleware.checkJWT,
+    categoryController.postCreateCategory
+  );
   router.get("/database/category", categoryController.getListCategory);
 
   router.post("/delivery", deliveryController.postCreateInfoDelivery);
   router.get("/delivery/:id", deliveryController.getInfoDelivery);
   router.put("/delivery/:id", deliveryController.putInfoDelivery);
 
-  router.post("/order", orderController.postCreateOrder);
-  router.get("/user/orderHistory/:id", orderController.fetchOrderHistory);
+  router.post(
+    "/order",
+    checkMiddleware.checkJWT,
+    orderController.postCreateOrder
+  );
+  router.get(
+    "/user/orderHistory/:id",
+    checkMiddleware.checkJWT,
+    orderController.fetchOrderHistory
+  );
+  router.get("/order", checkMiddleware.checkJWT, orderController.getOrderAdmin);
+  router.put("/orderStatus/:id", orderController.putOrderStatus);
 
-  router.post("/orderDetail", orderDetailController.postOrderDetail);
-  router.get("/orderDetail/:id", orderDetailController.getOrderDetail);
+  router.post(
+    "/orderDetail",
+    checkMiddleware.checkJWT,
+    orderDetailController.postOrderDetail
+  );
+  router.get(
+    "/orderDetail/:id",
+    checkMiddleware.checkJWT,
+    orderDetailController.getOrderDetail
+  );
+
+  router.get(
+    "/status",
+    checkMiddleware.checkJWT,
+    statusController.getStatusAdmin
+  );
 
   return app.use("/api/v1", router);
 };

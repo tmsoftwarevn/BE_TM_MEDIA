@@ -44,7 +44,7 @@ const createAcessTokenSocial = async (req, res) => {
         EC: 1,
       });
     } else {
-      return res.status(401).json({
+      return res.status(400).json({
         message: "login failed",
       });
     }

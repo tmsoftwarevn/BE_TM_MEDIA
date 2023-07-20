@@ -66,4 +66,61 @@ const getOrderHistoryUser = async (idUser, page, limit) => {
     return { list, total };
   }
 };
-export default { createOrderService, getOrderHistoryUser };
+
+const getOrderAdminService = async (page, limit, search) => {
+  page = +page;
+  limit = +limit;
+  let total = await db.Order.count({
+    include: {
+      model: db.Status,
+      where: search ? { id: search } : "",
+      attributes: [],
+    },
+  });
+  let list = await db.Order.findAll({
+    order: [["createdAt", "DESC"]],
+    attributes: [
+      "totalProduct",
+      "payment",
+      "total",
+      "id",
+      "createdAt",
+      "address",
+      "phone",
+      "fullname",
+      "Status.status",
+    ],
+    include: {
+      model: db.Status,
+      where: search ? { id: search } : "",
+      attributes: [],
+    },
+    raw: true,
+  });
+  if (list) {
+    return { list, total };
+  }
+};
+
+const updateOrderStatusService = async (Order, Status) => {
+  try {
+    let values = {
+      idStatus: +Status,
+    };
+    let selector = {
+      where: { id: +Order },
+    };
+    let a = await db.Order.update(values, selector);
+    if (a) {
+      return {
+        DT: "update success",
+      };
+    }
+  } catch (error) {}
+};
+export default {
+  createOrderService,
+  getOrderHistoryUser,
+  getOrderAdminService,
+  updateOrderStatusService,
+};

@@ -1,7 +1,6 @@
 import userService from "../service/userService";
 import jwtService from "../service/jwtService";
 import checkMiddleware from "../middleware/checkMiddleware";
-import socialService from "../service/socialService";
 require("dotenv").config();
 const postLogin = async (req, res) => {
   try {
@@ -38,8 +37,9 @@ const postLogin = async (req, res) => {
   }
 };
 
-const postLogout = (req, res) => {
+const postLogout = async (req, res) => {
   try {
+    await jwtService.deleteRefreshToken(req.body.id);
     res.clearCookie("refreshToken", {
       domain: process.env.COOKIE_DOMAIN,
       path: "/",

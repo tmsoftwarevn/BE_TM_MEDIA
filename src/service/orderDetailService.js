@@ -1,4 +1,4 @@
-import { BOOLEAN } from "sequelize";
+
 import db from "../models";
 const createOrderDetail = async (arr) => {
   let c = await db.OrderDetail.bulkCreate(arr, {});

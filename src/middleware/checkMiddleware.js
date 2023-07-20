@@ -42,7 +42,7 @@ const checkJWT = (req, res, next) => {
     let headerToken = extractToken(req);
     if (!headerToken) {
       return res.status(400).json({
-        message: "Không có access token, Vui lòng đăng nhập để lấy token",
+        message: "Không tìm thấy accessToken ở header.",
         EC: -1,
       });
     } else {

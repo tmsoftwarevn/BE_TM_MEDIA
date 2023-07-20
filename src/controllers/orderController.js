@@ -40,4 +40,49 @@ const fetchOrderHistory = async (req, res) => {
     });
   }
 };
-export default { postCreateOrder, fetchOrderHistory };
+
+const getOrderAdmin = async (req, res) => {
+  const { current, pageSize, search } = req.query;
+  let data = await orderService.getOrderAdminService(current, pageSize, search);
+  if (data && data.list) {
+    return res.status(200).json({
+      data: {
+        EC: 1,
+        meta: {
+          current: current,
+          pageSize: pageSize,
+          pages: Math.ceil(+data.total / +pageSize),
+          total: data.total,
+        },
+        result: data.list,
+      },
+    });
+  } else {
+    return res.status(400).json({
+      message: "Something wrong ",
+      EC: -1,
+    });
+  }
+};
+
+const putOrderStatus = async (req, res) => {
+  const idOrder = req.params.id;
+  const idStatus = req.body.idStatus;
+  let data = await orderService.updateOrderStatusService(idOrder, idStatus);
+  if (data && data.DT) {
+    return res.status(200).json({
+      EC: 1,
+      data: data.DT,
+    });
+  } else {
+    return res.status(400).json({
+      message: "Có lỗi xảy ra",
+    });
+  }
+};
+export default {
+  postCreateOrder,
+  fetchOrderHistory,
+  getOrderAdmin,
+  putOrderStatus,
+};

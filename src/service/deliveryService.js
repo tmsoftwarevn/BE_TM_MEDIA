@@ -33,7 +33,7 @@ const getInfoDeliveryService = async (id) => {
 const updateDeliveryService = async (id, up) => {
   let values = {
     fullname: up.fullname,
-    phone: +up.phone,
+    phone: up.phone,
     address: up.address,
   };
   let selector = {

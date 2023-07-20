@@ -1,22 +1,5 @@
 import db from "../models";
 import checkMiddleware from "../middleware/checkMiddleware";
-const getInfoDelivery = async (user) => {
-  try {
-    let infoDelivery = await db.infoDelivery.findAll({
-      where: { idUser: user.id },
-      attributes: ["fullName", "phone", "address", "id"],
-      include: {
-        model: db.User,
-        attributes: [],
-      },
-      raw: true,
-      nest: true,
-    });
-    return infoDelivery ? infoDelivery : {};
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 const getInfoUser = async (user) => {
   try {
@@ -95,11 +78,15 @@ const newAccessTokenFromRT = async (req, res) => {
     });
   }
 };
-
+const deleteRefreshToken = async (id) => {
+  if (id) {
+    let d = await db.User.update({ refreshToken: null }, { where: { id: id } });
+  }
+};
 export default {
-  getInfoDelivery,
   getInfoUser,
   saveRefreshToken,
   newAccessTokenFromRT,
   getAccount,
+  deleteRefreshToken,
 };
