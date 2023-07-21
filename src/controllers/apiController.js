@@ -150,6 +150,50 @@ const delelteUser = async (req, res) => {
     });
   }
 };
+/// change name
+const putUser = async (req, res) => {
+  let data = await userService.updateUserSerice(
+    req.params.id,
+    req.body.fullname
+  );
+  if (data && data.DT) {
+    return res.status(200).json({
+      data: "Update success",
+    });
+  } else {
+    return res.status(400).json({
+      message: data.message,
+    });
+  }
+};
+const putPasswordUser = async (req, res) => {
+  let data = await userService.updatePasswordUser(
+    req.body.email,
+    req.body.newPassword
+  );
+  if (data && data.DT) {
+    return res.status(200).json({
+      data: "Update success",
+    });
+  } else {
+    return res.status(400).json({
+      message: data.message,
+    });
+  }
+};
+const checkPass = async (req, res, next) => {
+  let check = await userService.checkPasswordService(
+    req.body.email,
+    req.body.password
+  );
+  if (check === true) {
+    return next();
+  } else {
+    return res.status(400).json({
+      message: "Mật khẩu không chính xác",
+    });
+  }
+};
 export default {
   postLogin,
   postLogout,
@@ -157,4 +201,7 @@ export default {
   getUserAdress,
   getListUser,
   delelteUser,
+  putUser,
+  putPasswordUser,
+  checkPass,
 };

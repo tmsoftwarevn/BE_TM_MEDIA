@@ -1,4 +1,4 @@
-import { Op } from "sequelize";
+import { Op, where } from "sequelize";
 import db from "../models/index";
 import jwtService from "./jwtService";
 import bcrypt from "bcryptjs";
@@ -200,9 +200,65 @@ const deleteUserService = async (userId) => {
     };
   }
 };
+
+const updateUserSerice = async (id, name) => {
+  if (!name)
+    return {
+      message: "Vui lòng nhập đầy đủ thông tin",
+    };
+  try {
+    let u = await db.User.update(
+      {
+        fullName: name,
+      },
+      {
+        where: { id: id },
+      }
+    );
+    return {
+      DT: "update success",
+    };
+  } catch (error) {}
+};
+
+const updatePasswordUser = async (email, newPass) => {
+  try {
+    if (!email || !newPass)
+      return {
+        message: "Vui lòng nhập đầy đủ thông tin",
+      };
+    let hashPassword = hashUserPassword(newPass);
+    let u = await db.User.update(
+      { password: hashPassword },
+      { where: { email: email } }
+    );
+    return {
+      DT: "update success",
+    };
+  } catch (error) {}
+};
+const checkPasswordService = async (email, pass) => {
+  let user = await db.User.findOne({
+    where: {
+      email: email,
+    },
+  });
+  if (user) {
+    let userData = user.get({ plain: true });
+    let isPassword = bcrypt.compareSync(pass, userData.password);
+    if (isPassword) {
+      return true;
+    }
+  }
+  return false;
+};
+
 export default {
   loginUserService,
   registerUserService,
   getListUserService,
   deleteUserService,
+  updateUserSerice,
+  updatePasswordUser,
+  checkPasswordService,
 };

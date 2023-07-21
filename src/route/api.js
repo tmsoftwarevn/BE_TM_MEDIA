@@ -12,6 +12,7 @@ import deliveryController from "../controllers/deliveryController";
 import orderController from "../controllers/orderController";
 import orderDetailController from "../controllers/orderDetailController";
 import statusController from "../controllers/statusController";
+import userService from "../service/userService";
 require("dotenv").config();
 const initApiRouter = (app) => {
   router.get("/", (req, res) => {
@@ -134,6 +135,8 @@ const initApiRouter = (app) => {
     statusController.getStatusAdmin
   );
 
+  router.put("/user/:id", apiController.putUser);
+  router.put("/user", apiController.checkPass, apiController.putPasswordUser);
   return app.use("/api/v1", router);
 };
 
