@@ -1,6 +1,9 @@
 import db from "../models/index";
 import checkMiddleware from "../middleware/checkMiddleware";
 import jwtService from "./jwtService";
+import nodemailer from "nodemailer";
+import { Op } from "sequelize";
+require("dotenv").config();
 
 const createUserSocial = async (drawData, type) => {
   try {
@@ -57,7 +60,60 @@ const createAcessTokenSocial = async (req, res) => {
   }
 };
 
+const sendCode = async (email) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.GOOGLE_APP_EMAIL,
+        pass: process.env.GOOGLE_APP_PASSWORD,
+      },
+    });
+    const OTP = Math.floor(100000 + Math.random() * 900000);
+    const info = await transporter.sendMail({
+      from: `"Windy Book 👻" <${process.env.GOOGLE_APP_EMAIL}>`,
+      to: `${email}`,
+      subject: "Reset mật khẩu Windy Book",
+      html: `
+      <b>Bạn nhận được mã OTP để xác nhận đổi mật khẩu tài khoản từ ${process.env.PORT_URL}</b>
+      <br/>
+      <div>Your code: ${OTP}</div>
+      `,
+    });
+    if (info) {
+      let u = await saveCodePassWord(email, OTP);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+const saveCodePassWord = async (email, code) => {
+  await db.User.update({ OTP: code }, { where: { email: email } });
+};
+const checkOTPService = async (email, otp) => {
+  let c = await db.User.findOne({
+    where: {
+      [Op.and]: [
+        {
+          email: email,
+        },
+        {
+          OTP: otp,
+        },
+      ],
+    },
+  });
+  if (c) {
+    return true;
+  }
+  return false;
+};
 export default {
   createUserSocial,
   createAcessTokenSocial,
+  sendCode,
+  saveCodePassWord,
+  checkOTPService,
 };

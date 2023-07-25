@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       fullName: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
+      avatar: DataTypes.STRING,
       type: {
         type: DataTypes.STRING,
         defaultValue: "NORMAL",
@@ -22,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         defaultValue: "USER",
       },
+      OTP: DataTypes.INTEGER,
       refreshToken: DataTypes.TEXT,
     },
     {

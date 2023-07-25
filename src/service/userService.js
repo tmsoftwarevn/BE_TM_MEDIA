@@ -235,7 +235,11 @@ const updatePasswordUser = async (email, newPass) => {
     return {
       DT: "update success",
     };
-  } catch (error) {}
+  } catch (error) {
+    return {
+      message: "Có lỗi xảy ra",
+    };
+  }
 };
 const checkPasswordService = async (email, pass) => {
   let user = await db.User.findOne({

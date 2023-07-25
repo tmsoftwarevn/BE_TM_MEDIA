@@ -19,11 +19,17 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
       },
+      avatar: {
+        type: Sequelize.STRING,
+      },
       type: {
         type: Sequelize.STRING,
       },
       role: {
         type: Sequelize.STRING,
+      },
+      OTP: {
+        type: Sequelize.INTEGER,
       },
       refreshToken: {
         type: Sequelize.TEXT,

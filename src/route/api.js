@@ -13,6 +13,7 @@ import orderController from "../controllers/orderController";
 import orderDetailController from "../controllers/orderDetailController";
 import statusController from "../controllers/statusController";
 import userService from "../service/userService";
+import forgotPassword from "../controllers/forgotPassword";
 require("dotenv").config();
 const initApiRouter = (app) => {
   router.get("/", (req, res) => {
@@ -137,6 +138,11 @@ const initApiRouter = (app) => {
 
   router.put("/user/:id", apiController.putUser);
   router.put("/user", apiController.checkPass, apiController.putPasswordUser);
+
+  router.post("/forgot-password", forgotPassword.getCode);
+  router.post("/checkOTP", forgotPassword.checkOTP);
+  router.post("/newPass", apiController.putPasswordUser);
+
   return app.use("/api/v1", router);
 };
 

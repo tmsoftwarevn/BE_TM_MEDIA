@@ -37,6 +37,9 @@ module.exports = {
       rate: {
         type: Sequelize.INTEGER,
       },
+      description: {
+        type: Sequelize.TEXT,
+      },
       idCategory: {
         type: Sequelize.INTEGER,
       },
