@@ -2,7 +2,7 @@ import db from "../models";
 const createDeliveryService = async (delivery) => {
   let c = await db.infoDelivery.create({
     fullname: delivery.fullname,
-    phone: +delivery.phone,
+    phone: delivery.phone,
     address: delivery.address,
     idUser: delivery.idUser,
   });
