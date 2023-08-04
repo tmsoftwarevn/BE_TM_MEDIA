@@ -112,7 +112,7 @@ const getListBookService = async (
         [Op.and]: [
           {
             mainText: {
-              [Op.like]: mainText ? `%${mainText}%` : "%%",
+              [Op.like]: mainText ? "%" + mainText + "%" : "%%",
             },
           },
           {
@@ -175,14 +175,27 @@ const getListBookService = async (
   }
 };
 
-const getListBookHomeService = async (page, limit) => {
+const getListBookHomeService = async (page, limit, category, field, sort) => {
   page = +page;
   limit = +limit;
+  let array = JSON.parse("[" + category + "]");
+
   try {
-    let total = await db.Book.count({});
+    let total = await db.Book.count({
+      include: {
+        model: db.Category,
+        where: category
+          ? {
+              id: array,
+            }
+          : "",
+        attributes: [],
+      },
+    });
     let list = await db.Book.findAll({
       offset: (page - 1) * limit,
       limit: limit,
+      order: field ? [[field, sort]] : [],
       attributes: [
         "id",
         "author",
@@ -199,6 +212,11 @@ const getListBookHomeService = async (page, limit) => {
       ],
       include: {
         model: db.Category,
+        where: category
+          ? {
+              id: array,
+            }
+          : "",
         attributes: [],
       },
       raw: true,
@@ -226,6 +244,16 @@ const updateBookAfterOrder = async (bookId, count) => {
   }
 };
 
+const listBookPopulateServiceAll = async () => {
+  let d = await db.Book.findAll({
+    order: [["sold", "DESC"]],
+  });
+  if (d) {
+    return {
+      DT: d,
+    };
+  }
+};
 export default {
   createBookService,
   getInfoBookService,
@@ -234,4 +262,5 @@ export default {
   updateBookService,
   getListBookHomeService,
   updateBookAfterOrder,
+  listBookPopulateServiceAll,
 };

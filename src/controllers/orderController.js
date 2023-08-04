@@ -80,9 +80,39 @@ const putOrderStatus = async (req, res) => {
     });
   }
 };
+const fetchOrderStatus = async (req, res) => {
+  const idUser = req.params.id;
+  const { current, pageSize, idStatus } = req.query;
+  let data = await orderService.getOrderStatus1(
+    idUser,
+    idStatus,
+    current,
+    pageSize
+  );
+  if (data && data.list) {
+    return res.status(200).json({
+      data: {
+        EC: 1,
+        meta: {
+          current: current,
+          pageSize: pageSize,
+          pages: Math.ceil(+data.total / +pageSize),
+          total: data.total,
+        },
+        result: data.list,
+      },
+    });
+  } else {
+    return res.status(400).json({
+      message: "Something wrong ",
+      EC: -1,
+    });
+  }
+};
 export default {
   postCreateOrder,
   fetchOrderHistory,
   getOrderAdmin,
   putOrderStatus,
+  fetchOrderStatus,
 };

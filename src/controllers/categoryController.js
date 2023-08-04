@@ -28,4 +28,5 @@ const getListCategory = async (req, res) => {
     });
   }
 };
+
 export default { postCreateCategory, getListCategory };

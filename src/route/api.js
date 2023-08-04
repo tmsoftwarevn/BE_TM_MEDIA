@@ -143,6 +143,10 @@ const initApiRouter = (app) => {
   router.post("/checkOTP", forgotPassword.checkOTP);
   router.post("/newPass", apiController.putPasswordUser);
 
+  router.get("/user/orderStatus/:id", orderController.fetchOrderStatus);
+
+  router.get("/book/popular/all", bookController.getListBookPopulateAll);
+
   return app.use("/api/v1", router);
 };
 

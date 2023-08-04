@@ -118,9 +118,60 @@ const updateOrderStatusService = async (Order, Status) => {
     }
   } catch (error) {}
 };
+const getOrderStatus1 = async (idUser, idStatus, page, limit) => {
+  page = +page;
+  limit = +limit;
+  let total = await db.Order.count({
+    include: [
+      {
+        model: db.User,
+        where: { id: idUser },
+        attributes: [],
+      },
+      {
+        model: db.Status,
+        where: { id: idStatus },
+        attributes: [],
+      },
+    ],
+  });
+  let list = await db.Order.findAll({
+    offset: (page - 1) * limit,
+    limit: limit,
+    order: [["createdAt", "DESC"]],
+    attributes: [
+      "totalProduct",
+      "payment",
+      "total",
+      "id",
+      "createdAt",
+      "Status.status",
+      "address",
+      "phone",
+      "fullname",
+    ],
+    include: [
+      {
+        model: db.User,
+        where: { id: idUser },
+        attributes: [],
+      },
+      {
+        model: db.Status,
+        where: { id: idStatus },
+        attributes: [],
+      },
+    ],
+    raw: true,
+  });
+  if (list) {
+    return { list, total };
+  }
+};
 export default {
   createOrderService,
   getOrderHistoryUser,
   getOrderAdminService,
   updateOrderStatusService,
+  getOrderStatus1,
 };
