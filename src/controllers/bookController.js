@@ -86,15 +86,18 @@ const getListBookPaginateAdmin = async (req, res) => {
     });
   }
 };
+
 const getListBookHome = async (req, res) => {
-  const { current, pageSize, category, field, sort } = req.query;
+  const { current, pageSize, category, field, sort, rate, price } = req.query;
 
   let data = await bookService.getListBookHomeService(
     current,
     pageSize,
     category,
     field,
-    sort
+    sort,
+    rate,
+    price
   );
   if (data && data.list) {
     return res.status(200).json({

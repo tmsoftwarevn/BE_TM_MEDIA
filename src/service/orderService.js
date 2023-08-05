@@ -130,7 +130,7 @@ const getOrderStatus1 = async (idUser, idStatus, page, limit) => {
       },
       {
         model: db.Status,
-        where: { id: idStatus },
+        where: { id: +idStatus },
         attributes: [],
       },
     ],
@@ -158,7 +158,7 @@ const getOrderStatus1 = async (idUser, idStatus, page, limit) => {
       },
       {
         model: db.Status,
-        where: { id: idStatus },
+        where: { id: +idStatus },
         attributes: [],
       },
     ],

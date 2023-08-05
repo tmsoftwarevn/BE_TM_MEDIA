@@ -94,7 +94,7 @@ const fetchOrderStatus = async (req, res) => {
       data: {
         EC: 1,
         meta: {
-          current: current,
+          current: +current,
           pageSize: pageSize,
           pages: Math.ceil(+data.total / +pageSize),
           total: data.total,

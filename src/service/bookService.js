@@ -175,13 +175,36 @@ const getListBookService = async (
   }
 };
 
-const getListBookHomeService = async (page, limit, category, field, sort) => {
+const getListBookHomeService = async (
+  page,
+  limit,
+  category,
+  field,
+  sort,
+  rate,
+  price
+) => {
   page = +page;
   limit = +limit;
   let array = JSON.parse("[" + category + "]");
+  let arrPrice = JSON.parse("[" + price + "]");
 
   try {
     let total = await db.Book.count({
+      where: {
+        [Op.and]: [
+          {
+            rate: {
+              [Op.gte]: rate ? +rate : 0,
+            },
+          },
+          {
+            price: {
+              [Op.between]: price ? arrPrice : [0, 99999999],
+            },
+          },
+        ],
+      },
       include: {
         model: db.Category,
         where: category
@@ -210,6 +233,20 @@ const getListBookHomeService = async (page, limit, category, field, sort) => {
         "createdAt",
         "updatedAt",
       ],
+      where: {
+        [Op.and]: [
+          {
+            rate: {
+              [Op.gte]: rate ? +rate : 0,
+            },
+          },
+          {
+            price: {
+              [Op.between]: price ? arrPrice : [0, 99999999],
+            },
+          },
+        ],
+      },
       include: {
         model: db.Category,
         where: category
