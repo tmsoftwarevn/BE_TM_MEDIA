@@ -150,6 +150,29 @@ const getListBookPopulateAll = async (req, res) => {
   }
 };
 
+const getListSearchBook = async (req, res) => {
+  const { current, pageSize, mainText } = req.query;
+  let data = await bookService.searchBookService(mainText, current, pageSize);
+  if (data && data.list) {
+    return res.status(200).json({
+      data: {
+        EC: 1,
+        meta: {
+          current: current,
+          pageSize: pageSize,
+          pages: Math.ceil(+data.total / +pageSize),
+          total: data.total,
+        },
+        result: data.list,
+      },
+    });
+  } else {
+    return res.status(400).json({
+      message: "Something wrong ",
+      EC: -1,
+    });
+  }
+};
 export default {
   postCreateBook,
   getInfoBook,
@@ -159,4 +182,5 @@ export default {
   getListBookHome,
   putBookAfterOrder,
   getListBookPopulateAll,
+  getListSearchBook,
 };

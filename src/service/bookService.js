@@ -291,6 +291,52 @@ const listBookPopulateServiceAll = async () => {
     };
   }
 };
+
+const searchBookService = async (mainText, page, limit) => {
+  page = +page;
+  limit = +limit;
+  try {
+    let total = await db.Book.count({
+      where: {
+        mainText: {
+          [Op.like]: mainText ? "%" + mainText + "%" : "%%",
+        },
+      },
+    });
+    let list = await db.Book.findAll({
+      offset: (page - 1) * limit,
+      limit: limit,
+      attributes: [
+        "id",
+        "author",
+        "thumbnail",
+        "slider",
+        "mainText",
+        "price",
+        "sold",
+        "quantity",
+        "rate",
+        "Category.category",
+        "createdAt",
+        "updatedAt",
+      ],
+      where: {
+        mainText: {
+          [Op.like]: mainText ? "%" + mainText + "%" : "%%",
+        },
+      },
+      include: {
+        model: db.Category,
+        attributes: [],
+      },
+      raw: true,
+    });
+    return { list, total };
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
 export default {
   createBookService,
   getInfoBookService,
@@ -300,4 +346,5 @@ export default {
   getListBookHomeService,
   updateBookAfterOrder,
   listBookPopulateServiceAll,
+  searchBookService,
 };

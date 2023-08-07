@@ -146,7 +146,7 @@ const initApiRouter = (app) => {
   router.get("/user/orderStatus/:id", orderController.fetchOrderStatus);
 
   router.get("/book/popular/all", bookController.getListBookPopulateAll);
-
+  router.get("/search", bookController.getListSearchBook);
   return app.use("/api/v1", router);
 };
 
