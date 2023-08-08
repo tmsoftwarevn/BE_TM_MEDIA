@@ -20,15 +20,11 @@ const getCode = async (req, res) => {
       },
       raw: true,
     });
-    if (user && user.type === "NORMAL") {
+    if (user) {
       await socialService.sendCode(req.body.email);
       return res.status(200).json({
         EC: 1,
         message: "Hãy kiểm tra email để lấy mã xác nhận",
-      });
-    } else if (user && user.type === "SOCIAL") {
-      return res.status(400).json({
-        message: "Tài khoản được đăng kí bằng Email or FaceBook",
       });
     } else {
       return res.status(400).json({
