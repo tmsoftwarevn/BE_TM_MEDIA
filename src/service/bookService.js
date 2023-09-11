@@ -1,5 +1,5 @@
 import { Op } from "sequelize";
-import db, { sequelize } from "../models/index";
+import db, { Sequelize, sequelize } from "../models/index";
 
 const createBookService = async (book) => {
   let info = await db.Book.create({
@@ -322,7 +322,7 @@ const searchBookService = async (mainText, page, limit) => {
       ],
       where: {
         mainText: {
-          [Op.like]: mainText ? "%" + mainText + "%" : "%%",
+          [Op.regexp]: mainText,
         },
       },
       include: {
@@ -331,6 +331,36 @@ const searchBookService = async (mainText, page, limit) => {
       },
       raw: true,
     });
+    if (list.length === 0) {
+      list = await db.Book.findAll({
+        offset: (page - 1) * limit,
+        limit: limit,
+        attributes: [
+          "id",
+          "author",
+          "thumbnail",
+          "slider",
+          "mainText",
+          "price",
+          "sold",
+          "quantity",
+          "rate",
+          "Category.category",
+          "createdAt",
+          "updatedAt",
+        ],
+        where: {
+          mainText: {
+            [Op.like]: mainText ? "%" + mainText + "%" : "%%",
+          },
+        },
+        include: {
+          model: db.Category,
+          attributes: [],
+        },
+        raw: true,
+      });
+    }
     return { list, total };
   } catch (error) {
     console.log(error);
