@@ -8,8 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec babel-node src/server.js",
     "build-src": "babel src -d build --copy-files",
-    "build": "node build/server.js",
-    "host": "node src/server.js"
+    "build": "node build/server.js"
+    
   },
   "author": "HongPhong",
   "license": "ISC",
