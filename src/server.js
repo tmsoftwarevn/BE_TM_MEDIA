@@ -48,5 +48,5 @@ configLoginWithSocial();
 //   res.render("image.ejs", { urlImage: req.params.id });
 // });
 app.listen(PORT, () => {
-  console.log("run app", +PORT);
+  console.log("run app success , port is: ", +PORT);
 });

@@ -11,7 +11,7 @@ module.exports = {
       freezeTableName: true,
     },
     logging: false,
-    operatorsAliases: "0",
+    // operatorsAliases: false,
     timezone: "+07:00",
   },
   test: {
