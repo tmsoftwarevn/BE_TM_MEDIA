@@ -1,4 +1,4 @@
-import db from "../models";
+const db = require("../models");
 const createDeliveryService = async (delivery) => {
   let c = await db.infoDelivery.create({
     fullname: delivery.fullname,

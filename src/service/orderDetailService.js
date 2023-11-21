@@ -1,5 +1,4 @@
-
-import db from "../models";
+const db = require("../models");
 const createOrderDetail = async (arr) => {
   let c = await db.OrderDetail.bulkCreate(arr, {});
   if (c) {

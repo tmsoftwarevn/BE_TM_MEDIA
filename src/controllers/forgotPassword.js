@@ -1,4 +1,4 @@
-import db from "../models";
+const db = require("../models");
 import socialService from "../service/socialService";
 const validateEmail = (email) => {
   return String(email)

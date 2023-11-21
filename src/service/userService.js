@@ -1,5 +1,6 @@
 import { Op, where } from "sequelize";
-import db from "../models/index";
+//import db from "../models/index";
+const db = require("../models");
 import jwtService from "./jwtService";
 import bcrypt from "bcryptjs";
 

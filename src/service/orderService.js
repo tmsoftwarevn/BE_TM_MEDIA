@@ -1,4 +1,4 @@
-import db from "../models";
+const db = require("../models");
 const createOrderService = async (order) => {
   let c = await db.Order.create({
     totalProduct: order.totalProduct,

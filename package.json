@@ -9,7 +9,7 @@
     "start": "nodemon --exec babel-node src/server.js",
     "build-src": "babel src -d build --copy-files",
     "build": "node build/server.js",
-    "start-host": "node src/server.js"
+    "host": "node src/server.js"
   },
   "author": "HongPhong",
   "license": "ISC",

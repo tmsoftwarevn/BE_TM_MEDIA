@@ -1,4 +1,4 @@
-import db from "../models";
+//import db from "../models";
 import categoryService from "../service/categoryService";
 
 const postCreateCategory = async (req, res) => {

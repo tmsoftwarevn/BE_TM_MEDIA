@@ -1,4 +1,5 @@
-import db from "../models";
+//import db from "../models";
+const db = require("../models");
 import checkMiddleware from "../middleware/checkMiddleware";
 
 const getInfoUser = async (user) => {

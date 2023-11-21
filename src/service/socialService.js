@@ -1,4 +1,5 @@
-import db from "../models/index";
+//import db from "../models/index";
+const db = require("../models");
 import checkMiddleware from "../middleware/checkMiddleware";
 import jwtService from "./jwtService";
 import nodemailer from "nodemailer";

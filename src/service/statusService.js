@@ -1,4 +1,4 @@
-import db from "../models";
+const db = require("../models");
 const getStatusService = async () => {
   let g = await db.Status.findAll({});
   if (g) {

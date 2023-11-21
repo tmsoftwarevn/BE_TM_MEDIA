@@ -1,4 +1,4 @@
-import db from "../models";
+const db = require("../models");
 const createCategoryService = async (cate) => {
   let data = await db.Category.create({
     category: cate,

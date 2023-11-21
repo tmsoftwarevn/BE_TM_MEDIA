@@ -1,5 +1,8 @@
 import { Op } from "sequelize";
-import db, { Sequelize, sequelize } from "../models/index";
+//import { Sequelize, sequelize } from "../models/index";
+const Sequelize = require("../models/index");
+const sequelize = require("../models/index");
+const db = require("../models");
 
 const createBookService = async (book) => {
   let info = await db.Book.create({
