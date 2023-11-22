@@ -76,16 +76,17 @@ var createAcessTokenSocial = /*#__PURE__*/function () {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
           _context2.prev = 0;
+          console.log("check req user login: ", req.user);
           if (!req.user) {
-            _context2.next = 12;
+            _context2.next = 13;
             break;
           }
           user = req.user;
           access_token = _checkMiddleware["default"].createJWT(user);
           refresh_token = _checkMiddleware["default"].createJWTRefresh(user);
-          _context2.next = 7;
+          _context2.next = 8;
           return _jwtService["default"].saveRefreshToken(user, refresh_token);
-        case 7:
+        case 8:
           res.cookie("refreshToken", refresh_token, {
             maxAge: parseInt(process.env.MAX_AGE_REFRESH_TOKEN),
             httpOnly: true,
@@ -99,26 +100,26 @@ var createAcessTokenSocial = /*#__PURE__*/function () {
             access_token: access_token,
             EC: 1
           }));
-        case 12:
+        case 13:
           return _context2.abrupt("return", res.status(400).json({
             message: "login failed"
           }));
-        case 13:
-          _context2.next = 19;
+        case 14:
+          _context2.next = 20;
           break;
-        case 15:
-          _context2.prev = 15;
+        case 16:
+          _context2.prev = 16;
           _context2.t0 = _context2["catch"](0);
           console.log(_context2.t0);
           return _context2.abrupt("return", res.status(500).json({
             message: "Something wrong in server",
             EC: -1
           }));
-        case 19:
+        case 20:
         case "end":
           return _context2.stop();
       }
-    }, _callee2, null, [[0, 15]]);
+    }, _callee2, null, [[0, 16]]);
   }));
   return function createAcessTokenSocial(_x3, _x4) {
     return _ref2.apply(this, arguments);
