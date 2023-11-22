@@ -45,7 +45,10 @@ var initApiRouter = function initApiRouter(app) {
     failureRedirect: "".concat(process.env.PORT_URL, "/login")
   }));
   //-----------------------------------------
-  router.get("/login/success", _socialService["default"].createAcessTokenSocial);
+  //router.get("/login/success", socialService.createAcessTokenSocial);
+  router.get("/login/success", function (req, res) {
+    console.log("check req router: ", req.user);
+  });
   // router.get("/login/failed", (req, res) => {
   //   res.status(400).json({
   //     message: "Login failed",
