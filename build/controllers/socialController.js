@@ -86,9 +86,11 @@ var configLoginWithSocial = function configLoginWithSocial() {
     };
   }()));
   _passport["default"].serializeUser(function (user, done) {
+    console.log("seriall", user);
     done(null, user);
   });
   _passport["default"].deserializeUser(function (user, done) {
+    console.log("deseriall", user);
     done(null, user);
   });
 };

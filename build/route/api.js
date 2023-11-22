@@ -56,7 +56,8 @@ var initApiRouter = function initApiRouter(app) {
       if (err) {
         return next(err);
       }
-      res.redirect("".concat(process.env.PORT_URL, "/login"));
+      //res.redirect(`${process.env.PORT_URL}/login`);
+      res.redirect("".concat(process.env.PORT_URL, "/FE-book-deploy/login"));
     });
   });
   //---------------------------------
