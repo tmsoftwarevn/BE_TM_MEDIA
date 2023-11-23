@@ -30,13 +30,9 @@ configViewEngine(app);
 // );
 app.use(
   session({
-    resave: false,
-    saveUninitialized: true,
-    secret: "SECRETSESSIONLG",
-    cookie: {
-      httpOnly: true,
-      secure: true,
-    },
+    cookie: { ephemeral: true },
+    cookieName: "session",
+    secret: "keyboardcat",
   })
 );
 ///

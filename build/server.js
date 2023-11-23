@@ -32,13 +32,11 @@ app.use(fileUpload());
 //   })
 // );
 app.use((0, _expressSession["default"])({
-  resave: false,
-  saveUninitialized: true,
-  secret: "SECRETSESSIONLG",
   cookie: {
-    httpOnly: true,
-    secure: true
-  }
+    ephemeral: true
+  },
+  cookieName: "session",
+  secret: "keyboardcat"
 }));
 ///
 
