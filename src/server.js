@@ -21,13 +21,26 @@ app.use(cookieParser());
 app.use(fileUpload());
 configViewEngine(app);
 
+// app.use(
+//   session({
+//     resave: false,
+//     saveUninitialized: true,
+//     secret: "SECRETSESSIONLG",
+//   })
+// );
 app.use(
   session({
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     secret: "SECRETSESSIONLG",
+    cookie: {
+      httpOnly: true,
+      secure: false,
+    },
   })
 );
+///
+
 app.use(passport.initialize());
 app.use(passport.session());
 //cors(app);

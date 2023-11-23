@@ -23,11 +23,25 @@ app.use(_bodyParser["default"].json());
 app.use((0, _cookieParser["default"])());
 app.use(fileUpload());
 (0, _viewEngine["default"])(app);
+
+// app.use(
+//   session({
+//     resave: false,
+//     saveUninitialized: true,
+//     secret: "SECRETSESSIONLG",
+//   })
+// );
 app.use((0, _expressSession["default"])({
   resave: false,
-  saveUninitialized: true,
-  secret: "SECRETSESSIONLG"
+  saveUninitialized: false,
+  secret: "SECRETSESSIONLG",
+  cookie: {
+    httpOnly: true,
+    secure: false
+  }
 }));
+///
+
 app.use(_passport["default"].initialize());
 app.use(_passport["default"].session());
 //cors(app);

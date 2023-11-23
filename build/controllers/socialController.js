@@ -39,8 +39,9 @@ var configLoginWithSocial = function configLoginWithSocial() {
             return _jwtService["default"].getInfoUser(user);
           case 7:
             info = _context.sent;
+            console.log("checkkkkk done: ", done);
             done(null, info);
-          case 9:
+          case 10:
           case "end":
             return _context.stop();
         }
