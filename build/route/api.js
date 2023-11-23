@@ -31,10 +31,10 @@ var initApiRouter = function initApiRouter(app) {
     scope: ["profile", "email"]
   }));
   router.get("/google/redirect", _passport["default"].authenticate("google", {
-    successRedirect: "".concat(process.env.PORT_URL, "/login"),
-    failureRedirect: "".concat(process.env.PORT_URL, "/login")
-    // successRedirect: `${process.env.PORT_URL}/FE-book-deploy/login`,
-    // failureRedirect: `${process.env.PORT_URL}/FE-book-deploy/login`,
+    // successRedirect: `${process.env.PORT_URL}/login`,
+    // failureRedirect: `${process.env.PORT_URL}/login`,
+    successRedirect: "".concat(process.env.PORT_URL, "/FE-book-deploy/login"),
+    failureRedirect: "".concat(process.env.PORT_URL, "/FE-book-deploy/login")
   }));
   //-------------- login facebook-----------------
   router.get("/auth/facebook", _passport["default"].authenticate("facebook", {

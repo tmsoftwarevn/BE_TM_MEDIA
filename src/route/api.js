@@ -27,10 +27,10 @@ const initApiRouter = (app) => {
   router.get(
     "/google/redirect",
     passport.authenticate("google", {
-      successRedirect: `${process.env.PORT_URL}/login`,
-      failureRedirect: `${process.env.PORT_URL}/login`,
-      // successRedirect: `${process.env.PORT_URL}/FE-book-deploy/login`,
-      // failureRedirect: `${process.env.PORT_URL}/FE-book-deploy/login`,
+      // successRedirect: `${process.env.PORT_URL}/login`,
+      // failureRedirect: `${process.env.PORT_URL}/login`,
+      successRedirect: `${process.env.PORT_URL}/FE-book-deploy/login`,
+      failureRedirect: `${process.env.PORT_URL}/FE-book-deploy/login`,
     })
   );
   //-------------- login facebook-----------------
