@@ -21,20 +21,22 @@ app.use(cookieParser());
 app.use(fileUpload());
 configViewEngine(app);
 
-// app.use(
-//   session({
-//     resave: false,
-//     saveUninitialized: true,
-//     secret: "SECRETSESSIONLG",
-//   })
-// );
 app.use(
   session({
-    cookie: { ephemeral: true },
-    cookieName: "session",
-    secret: "keyboardcat",
+    resave: false,
+    saveUninitialized: true,
+    secret: "SECRETSESSIONLG",
   })
 );
+// app.use(
+//   session({
+//     cookie: { ephemeral: true },
+//     cookieName: "session",
+//     secret: "keyboardcat",
+//     saveUninitialized: true,
+//     resave: false,
+//   })
+// );
 ///
 
 app.use(passport.initialize());

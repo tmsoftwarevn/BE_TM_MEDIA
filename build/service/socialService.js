@@ -76,7 +76,7 @@ var createAcessTokenSocial = /*#__PURE__*/function () {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
           _context2.prev = 0;
-          console.log("check req user login: ", req.user);
+          console.log("check user login: ", req.user);
           if (!req.user) {
             _context2.next = 13;
             break;

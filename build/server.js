@@ -23,21 +23,20 @@ app.use(_bodyParser["default"].json());
 app.use((0, _cookieParser["default"])());
 app.use(fileUpload());
 (0, _viewEngine["default"])(app);
-
+app.use((0, _expressSession["default"])({
+  resave: false,
+  saveUninitialized: true,
+  secret: "SECRETSESSIONLG"
+}));
 // app.use(
 //   session({
-//     resave: false,
+//     cookie: { ephemeral: true },
+//     cookieName: "session",
+//     secret: "keyboardcat",
 //     saveUninitialized: true,
-//     secret: "SECRETSESSIONLG",
+//     resave: false,
 //   })
 // );
-app.use((0, _expressSession["default"])({
-  cookie: {
-    ephemeral: true
-  },
-  cookieName: "session",
-  secret: "keyboardcat"
-}));
 ///
 
 app.use(_passport["default"].initialize());
