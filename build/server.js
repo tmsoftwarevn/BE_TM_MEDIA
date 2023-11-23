@@ -33,11 +33,11 @@ app.use(fileUpload());
 // );
 app.use((0, _expressSession["default"])({
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
   secret: "SECRETSESSIONLG",
   cookie: {
     httpOnly: true,
-    secure: false
+    secure: true
   }
 }));
 ///

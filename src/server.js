@@ -31,11 +31,11 @@ configViewEngine(app);
 app.use(
   session({
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     secret: "SECRETSESSIONLG",
     cookie: {
       httpOnly: true,
-      secure: false,
+      secure: true,
     },
   })
 );
