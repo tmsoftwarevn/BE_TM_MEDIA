@@ -30,14 +30,17 @@ var initApiRouter = function initApiRouter(app) {
   router.get("/auth/google", _passport["default"].authenticate("google", {
     scope: ["profile", "email"]
   }));
-  router.get("/google/redirect", _passport["default"].authenticate("google", {
-    // successRedirect: `${process.env.PORT_URL}/login`,
-    // failureRedirect: `${process.env.PORT_URL}/login`,
-    successRedirect: "".concat(process.env.PORT_URL, "/FE-book-deploy/login"),
-    failureRedirect: "".concat(process.env.PORT_URL, "/FE-book-deploy/login")
-    // successRedirect: "/api/v1/login/success",
-    // failureRedirect: "/",
-  }));
+  router.get("/google/redirect", _passport["default"].authenticate("google"), function (req, res) {
+    console.log("checkkkkkk reqqqqqqqq", req.user);
+    res.redirect("".concat(process.env.PORT_URL, "/FE-book-deploy/login"));
+  }
+  // passport.authenticate("google", {
+  //   // successRedirect: `${process.env.PORT_URL}/login`,
+  //   // failureRedirect: `${process.env.PORT_URL}/login`,
+  //   successRedirect: `${process.env.PORT_URL}/FE-book-deploy/login`,
+  //   failureRedirect: `${process.env.PORT_URL}/FE-book-deploy/login`,
+  // })
+  );
   //-------------- login facebook-----------------
   router.get("/auth/facebook", _passport["default"].authenticate("facebook", {
     scope: ["public_profile", "email"]

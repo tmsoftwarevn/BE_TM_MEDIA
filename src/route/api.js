@@ -26,14 +26,17 @@ const initApiRouter = (app) => {
   );
   router.get(
     "/google/redirect",
-    passport.authenticate("google", {
-      // successRedirect: `${process.env.PORT_URL}/login`,
-      // failureRedirect: `${process.env.PORT_URL}/login`,
-      successRedirect: `${process.env.PORT_URL}/FE-book-deploy/login`,
-      failureRedirect: `${process.env.PORT_URL}/FE-book-deploy/login`,
-      // successRedirect: "/api/v1/login/success",
-      // failureRedirect: "/",
-    })
+    passport.authenticate("google"),
+    (req, res) => {
+      console.log("checkkkkkk reqqqqqqqq", req.user);
+      res.redirect(`${process.env.PORT_URL}/FE-book-deploy/login`);
+    }
+    // passport.authenticate("google", {
+    //   // successRedirect: `${process.env.PORT_URL}/login`,
+    //   // failureRedirect: `${process.env.PORT_URL}/login`,
+    //   successRedirect: `${process.env.PORT_URL}/FE-book-deploy/login`,
+    //   failureRedirect: `${process.env.PORT_URL}/FE-book-deploy/login`,
+    // })
   );
   //-------------- login facebook-----------------
   router.get(
