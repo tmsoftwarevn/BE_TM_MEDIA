@@ -23,7 +23,7 @@ const configLoginWithSocial = () => {
         };
         let user = await socialService.createUserSocial(drawData, typeAcc);
         let info = await jwtService.getInfoUser(user);
-        console.log("checkkkkk done: ", done);
+        // console.log("checkkkkk profile: ", profile);
         done(null, info);
       }
     )

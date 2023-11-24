@@ -78,7 +78,7 @@ var createAcessTokenSocial = /*#__PURE__*/function () {
           _context2.prev = 0;
           console.log("check user login: ", req.user);
           if (!req.user) {
-            _context2.next = 13;
+            _context2.next = 12;
             break;
           }
           user = req.user;
@@ -94,32 +94,32 @@ var createAcessTokenSocial = /*#__PURE__*/function () {
             secure: true,
             path: "/"
           });
-          req.user = null;
+          //req.user = null;
           return _context2.abrupt("return", res.status(200).json({
             data: user,
             access_token: access_token,
             EC: 1
           }));
-        case 13:
+        case 12:
           return _context2.abrupt("return", res.status(400).json({
             message: "login failed"
           }));
-        case 14:
-          _context2.next = 20;
+        case 13:
+          _context2.next = 19;
           break;
-        case 16:
-          _context2.prev = 16;
+        case 15:
+          _context2.prev = 15;
           _context2.t0 = _context2["catch"](0);
           console.log(_context2.t0);
           return _context2.abrupt("return", res.status(500).json({
             message: "Something wrong in server",
             EC: -1
           }));
-        case 20:
+        case 19:
         case "end":
           return _context2.stop();
       }
-    }, _callee2, null, [[0, 16]]);
+    }, _callee2, null, [[0, 15]]);
   }));
   return function createAcessTokenSocial(_x3, _x4) {
     return _ref2.apply(this, arguments);

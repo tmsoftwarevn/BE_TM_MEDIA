@@ -31,6 +31,8 @@ const initApiRouter = (app) => {
       // failureRedirect: `${process.env.PORT_URL}/login`,
       successRedirect: `${process.env.PORT_URL}/FE-book-deploy/login`,
       failureRedirect: `${process.env.PORT_URL}/FE-book-deploy/login`,
+      // successRedirect: "/api/v1/login/success",
+      // failureRedirect: "/",
     })
   );
   //-------------- login facebook-----------------
@@ -46,10 +48,11 @@ const initApiRouter = (app) => {
     })
   );
   //-----------------------------------------
-  //router.get("/login/success", socialService.createAcessTokenSocial);
-  router.get("/login/success", (req, res) => {
-    console.log("check req router: ", req.user);
-  });
+  router.get("/login/success", socialService.createAcessTokenSocial);
+  // router.get("/login/success", (req, res, next) => {
+  //   res.redirect(`${process.env.PORT_URL}/login`);
+  //   console.log("check req router: ", req.user);
+  // });
   // router.get("/login/failed", (req, res) => {
   //   res.status(400).json({
   //     message: "Login failed",

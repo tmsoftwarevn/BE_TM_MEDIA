@@ -34,10 +34,7 @@ app.use(fileUpload());
 app.use((0, _expressSession["default"])({
   resave: false,
   saveUninitialized: true,
-  secret: "SECRETSESSIONLG",
-  cookie: {
-    secure: false
-  }
+  secret: "SECRETSESSIONLG"
 }));
 app.use(_passport["default"].initialize());
 app.use(_passport["default"].session());

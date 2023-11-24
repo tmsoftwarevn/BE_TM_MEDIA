@@ -33,7 +33,6 @@ app.use(
     resave: false,
     saveUninitialized: true,
     secret: "SECRETSESSIONLG",
-    cookie: { secure: false },
   })
 );
 

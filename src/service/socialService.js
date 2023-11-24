@@ -42,7 +42,7 @@ const createAcessTokenSocial = async (req, res) => {
         secure: true,
         path: "/",
       });
-      req.user = null;
+      //req.user = null;
       return res.status(200).json({
         data: user,
         access_token: access_token,
