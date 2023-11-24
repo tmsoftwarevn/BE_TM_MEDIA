@@ -29,7 +29,7 @@ const initApiRouter = (app) => {
     passport.authenticate("google"),
     (req, res) => {
       console.log("checkkkkkk reqqqqqqqq", req.user);
-      res.redirect(`${process.env.PORT_URL}/FE-book-deploy/login`);
+      res.redirect("/");
     }
     // passport.authenticate("google", {
     //   // successRedirect: `${process.env.PORT_URL}/login`,
