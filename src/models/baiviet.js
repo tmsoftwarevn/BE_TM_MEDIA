@@ -17,10 +17,10 @@ module.exports = (sequelize, DataTypes) => {
     tieude: DataTypes.STRING,
     meta_des: DataTypes.STRING,
     noidung:DataTypes.TEXT,
-    type_id:DataTypes.INTEGER,
+    thumbnail: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'baiviet',
   });
-  return User;
+  return baiviet;
 };

@@ -19,8 +19,8 @@ module.exports = {
       noidung: {
         type: Sequelize.TEXT,
       },
-      type_id: {
-        type: Sequelize.INTEGER,
+      thumbnail: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -29,6 +29,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
       },
     });
   },
