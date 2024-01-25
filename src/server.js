@@ -5,7 +5,6 @@ import bodyParser from "body-parser";
 import connectDB from "./config/connectDB";
 import cookieParser from "cookie-parser";
 
-
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
 
@@ -15,12 +14,9 @@ const PORT = process.env.PORT || 8000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cookieParser());
 
 app.use(fileUpload());
-
 configViewEngine(app);
-
 
 
 app.use(
@@ -33,7 +29,6 @@ app.use(
 
 connectDB();
 initApiRouter(app);
-
 
 
 app.listen(PORT, () => {

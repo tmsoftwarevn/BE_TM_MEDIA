@@ -1,46 +1,29 @@
 "use strict";
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Book", {
+    await queryInterface.createTable("xaykenh", {
       id: {
-        // primaryKey: true,
-        // allowNull: false,
-        // type: Sequelize.UUID,
-        // defaultValue: Sequelize.Sequelize.fn("uuid"),
         type: Sequelize.INTEGER(11),
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
       },
-      author: {
+
+      name: {
         type: Sequelize.STRING,
       },
       thumbnail: {
         type: Sequelize.STRING,
       },
-      slider: {
-        type: Sequelize.JSON,
-      },
-      mainText: {
+      link: {
         type: Sequelize.STRING,
       },
-      price: {
-        type: Sequelize.INTEGER,
-      },
-      sold: {
-        type: Sequelize.INTEGER,
-      },
-      quantity: {
-        type: Sequelize.INTEGER,
-      },
-      rate: {
-        type: Sequelize.INTEGER,
-      },
-      description: {
+      noidung: {
         type: Sequelize.TEXT,
       },
-      idCategory: {
+      type_id: {
         type: Sequelize.INTEGER,
       },
       createdAt: {
@@ -54,6 +37,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Book");
+    await queryInterface.dropTable("xaykenh");
   },
 };

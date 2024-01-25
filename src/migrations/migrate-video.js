@@ -3,15 +3,28 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Category", {
+    await queryInterface.createTable("video", {
       id: {
         type: Sequelize.INTEGER(11),
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
       },
-      category: {
+
+      name: {
         type: Sequelize.STRING,
+      },
+      thumbnail: {
+        type: Sequelize.STRING,
+      },
+      link: {
+        type: Sequelize.STRING,
+      },
+      noidung: {
+        type: Sequelize.TEXT,
+      },
+      type_id: {
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
@@ -24,6 +37,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Category");
+    await queryInterface.dropTable("video");
   },
 };

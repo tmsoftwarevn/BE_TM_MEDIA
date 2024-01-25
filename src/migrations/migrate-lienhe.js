@@ -3,24 +3,24 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("infoDelivery", {
+    await queryInterface.createTable("lienhe", {
       id: {
         type: Sequelize.INTEGER(11),
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
       },
-      fullname: {
+      name: {
+        type: Sequelize.STRING,
+      },
+      email: {
         type: Sequelize.STRING,
       },
       phone: {
         type: Sequelize.STRING,
       },
-      address: {
-        type: Sequelize.STRING,
-      },
-      idUser: {
-        type: Sequelize.INTEGER,
+      noidung: {
+        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +33,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("infoDelivery");
+    await queryInterface.dropTable("lienhe");
   },
 };
