@@ -32,14 +32,27 @@ const updateMenu = async (name, id) => {
 };
 
 const deleteMenu = async (id) => {
-    try {
-        let del = db.menu.destroy({
-            where: { id: id },
-          });
-          return {DT: 'Delete success'}
-    } catch (error) {
-        console.log(error);
-    }
-  
-  };
-export default { insertMenuService, updateMenu, deleteMenu };
+  try {
+    let del = await db.menu.destroy({
+      where: { id: id },
+    });
+    if (del) return { DT: "Delete success" };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getMenu_byId = async (id) => {
+  try {
+    let g = await db.menu.findAll({
+      attributes: ["id","name"],
+      where: { type_id: id },
+      raw: true,
+    });
+    return g;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export default { insertMenuService, updateMenu, deleteMenu, getMenu_byId };

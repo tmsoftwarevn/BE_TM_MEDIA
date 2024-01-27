@@ -55,7 +55,7 @@ const deleteMenu = async (req, res) => {
       });
     } else {
       return res.status(400).json({
-        message: "Không update được",
+        message: "Không xóa được",
         EC: -1,
       });
     }
@@ -67,4 +67,18 @@ const deleteMenu = async (req, res) => {
     });
   }
 };
-export default { postMenu, updateMenu, deleteMenu };
+const getMenu_byId = async (req, res) => {
+  const data = await menuService.getMenu_byId(req.params.id);
+  if (data) {
+    return res.status(200).json({
+      data: data,
+      EC: 1,
+    });
+  } else {
+    return res.status(400).json({
+      message: "Có lỗi",
+      EC: -1,
+    });
+  }
+};
+export default { postMenu, updateMenu, deleteMenu, getMenu_byId };

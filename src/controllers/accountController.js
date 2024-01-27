@@ -44,5 +44,32 @@ const postLogin = async (req, res) => {
       });
     }
   };
-
-export default {postRegister, postLogin}
+  const putPasswordUser = async (req, res) => {
+    let data = await accountService.updatePasswordUser(
+      req.body.name,
+      req.body.new_password
+    );
+    if (data && data.DT) {
+      return res.status(200).json({
+        data: "Update success",
+      });
+    } else {
+      return res.status(400).json({
+        message: data.message,
+      });
+    }
+  };
+  const checkPass = async (req, res, next) => {
+    let check = await accountService.checkPasswordService(
+      req.body.name,
+      req.body.password
+    );
+    if (check === true) {
+      return next();
+    } else {
+      return res.status(400).json({
+        message: "Tài khoản hoặc mật khẩu không chính xác",
+      });
+    }
+  };
+export default {postRegister, postLogin, checkPass, putPasswordUser}

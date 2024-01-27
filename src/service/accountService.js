@@ -51,4 +51,37 @@ const loginService = async (rawData) => {
     };
   }
 };
-export default { registerService, loginService };
+
+const updatePasswordUser = async (name, newPass) => {
+  try {
+    
+    let hashPassword = hashUserPassword(newPass);
+    let u = await db.admin.update(
+      { password: hashPassword },
+      { where: { name: name } }
+    );
+    return {
+      DT: "update success",
+    };
+  } catch (error) {
+    return {
+      message: "Có lỗi xảy ra",
+    };
+  }
+};
+const checkPasswordService = async (name, pass) => {
+  let user = await db.admin.findOne({
+    where: {
+      name: name,
+    },
+  });
+  if (user) {
+    let userData = user.get({ plain: true });
+    let isPassword = bcrypt.compareSync(pass, userData.password);
+    if (isPassword) {
+      return true;
+    }
+  }
+  return false;
+};
+export default { registerService, loginService,updatePasswordUser, checkPasswordService };
