@@ -63,8 +63,9 @@ const initApiRouter = (app) => {
   );
 
   //upload file img
+  router.post("/uploadImg_baiviet", uploadfileController.postFileUploadImage_baiviet);
   router.post("/uploadImg", uploadfileController.postFileUploadImage);
-  router.delete("/uploadImg",uploadfileController.deleteImage);
+  router.post("/deleteImg",uploadfileController.deleteImage);
 
   
   return app.use("/api/v1", router);

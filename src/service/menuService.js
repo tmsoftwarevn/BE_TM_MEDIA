@@ -23,6 +23,7 @@ const updateMenu = async (name, id) => {
         where: { id: id },
       }
     );
+    if (u[0] >0)
     return {
       DT: "update success",
     };

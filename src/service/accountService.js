@@ -60,9 +60,10 @@ const updatePasswordUser = async (name, newPass) => {
       { password: hashPassword },
       { where: { name: name } }
     );
-    return {
-      DT: "update success",
-    };
+    if (u[0] >0)
+      return {
+        DT: "update success",
+      };
   } catch (error) {
     return {
       message: "Có lỗi xảy ra",

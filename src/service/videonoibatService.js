@@ -52,9 +52,10 @@ const updateVideo = async (data, id) => {
         where: { type_id: id },
       }
     );
-    return {
-      DT: "update success",
-    };
+    if (u[0] >0)
+      return {
+        DT: "update success",
+      };
   } catch (error) {
     console.log(error);
   }

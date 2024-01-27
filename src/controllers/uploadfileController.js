@@ -11,9 +11,19 @@ const postFileUploadImage = async (req, res) => {
     data: result.data,
   });
 };
+const postFileUploadImage_baiviet = async (req, res) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send("No files were uploaded.");
+  }
 
-const deleteImage = (req, res) => {
-  const data = upload.deleteImage(req.body.fileImg);
+  let result = await upload.uploadSingleFile_baiviet(req.files.fileImg);
+  return res.status(200).json({
+    EC: 1,
+    data: result.data,
+  });
+};
+const deleteImage =async (req, res) => {
+  const data = await upload.deleteImage(req.body.fileImg);
   if (data && data.DT) {
     return res.status(200).json({
       EC: 1,
@@ -27,4 +37,4 @@ const deleteImage = (req, res) => {
   }
 };
 
-export default { postFileUploadImage, deleteImage };
+export default { postFileUploadImage, deleteImage ,postFileUploadImage_baiviet};
