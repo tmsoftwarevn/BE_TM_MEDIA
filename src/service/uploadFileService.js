@@ -26,7 +26,7 @@ const uploadSingleFile = async (fileObject) => {
 };
 
 const uploadSingleFile_baiviet = async (fileObject) => {
-  console.log('fffffffff', fileObject);
+  //console.log('fffffffff', fileObject);
   let uploadPath = path.resolve(__dirname, "../public/images/baiviet");
 
   let extName = path.extname(fileObject.name);

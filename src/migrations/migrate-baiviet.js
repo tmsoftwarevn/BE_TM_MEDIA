@@ -13,7 +13,13 @@ module.exports = {
       tieude: {
         type: Sequelize.STRING,
       },
+      key_word:{
+        type: Sequelize.STRING,
+      },
       meta_des: {
+        type: Sequelize.STRING,
+      },
+      mota_ngan:{
         type: Sequelize.STRING,
       },
       noidung: {

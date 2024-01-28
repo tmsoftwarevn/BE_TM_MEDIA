@@ -15,7 +15,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   baiviet.init({
     tieude: DataTypes.STRING,
+    key_word:DataTypes.STRING,
     meta_des: DataTypes.STRING,
+    mota_ngan:DataTypes.STRING,
     noidung:DataTypes.TEXT,
     thumbnail: DataTypes.STRING,
   }, {

@@ -1,6 +1,7 @@
 const db = require("../models");
 
 const insertMenuService = async (data) => {
+  
   try {
     let c = await db.menu.create({
       name: data.name,
@@ -13,20 +14,21 @@ const insertMenuService = async (data) => {
   }
 };
 
-const updateMenu = async (name, id) => {
+const updateMenu = async (data, id) => {
   try {
     let u = await db.menu.update(
       {
-        name: name,
+        name: data.name,
+        active: data.active,
       },
       {
         where: { id: id },
       }
     );
-    if (u[0] >0)
-    return {
-      DT: "update success",
-    };
+    if (u[0] > 0)
+      return {
+        DT: "update success",
+      };
   } catch (error) {
     console.log(error);
   }
@@ -46,7 +48,7 @@ const deleteMenu = async (id) => {
 const getMenu_byId = async (id) => {
   try {
     let g = await db.menu.findAll({
-      attributes: ["id","name"],
+      attributes: ["id", "name", "active"],
       where: { type_id: id },
       raw: true,
     });

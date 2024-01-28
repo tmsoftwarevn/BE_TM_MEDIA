@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   media.init(
     {
+      key_word:DataTypes.STRING,
+      meta_des: DataTypes.STRING,
       banner_bg: DataTypes.STRING,
       video_bg: DataTypes.STRING,
       link: DataTypes.STRING,

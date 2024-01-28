@@ -7,6 +7,7 @@ const insertVideo = async (data) => {
       link: data.link,
       name: data.name,
       type_id: data.type_id,
+      
     });
     c = c.get({ plain: true });
     return c;
@@ -49,7 +50,7 @@ const updateVideo = async (data, id) => {
         name: data.name,
       },
       {
-        where: { type_id: id },
+        where: { id: id },
       }
     );
     if (u[0] >0)

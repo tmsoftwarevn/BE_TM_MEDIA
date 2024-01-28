@@ -3,6 +3,8 @@ const db = require("../models");
 const insertMedia = async (data) => {
   try {
     let c = await db.media.create({
+      key_word: data.key_word,
+      meta_des: data.meta_des,
       banner_bg: data.banner_bg,
       video_bg: data.video_bg,
       link: data.link,
@@ -19,7 +21,15 @@ const insertMedia = async (data) => {
 const get_detail_media = async (id) => {
   try {
     let g = await db.media.findOne({
-      attributes: ["id", "banner_bg", "video_bg", "link", "noidung"],
+      attributes: [
+        "id",
+        "key_word",
+        "meta_des",
+        "banner_bg",
+        "video_bg",
+        "link",
+        "noidung",
+      ],
       where: { type_id: id },
       raw: true,
     });
@@ -30,9 +40,12 @@ const get_detail_media = async (id) => {
 };
 
 const updateMedia = async (data, id) => {
+  // console.log('dataaaa', data);
   try {
     let u = await db.media.update(
       {
+        key_word: data.key_word,
+        meta_des: data.meta_des,
         banner_bg: data.banner_bg,
         video_bg: data.video_bg,
         link: data.link,
@@ -42,8 +55,8 @@ const updateMedia = async (data, id) => {
         where: { type_id: id },
       }
     );
-    
-    if (u[0] >0)
+
+    if (u[0] > 0)
       return {
         DT: "update success",
       };

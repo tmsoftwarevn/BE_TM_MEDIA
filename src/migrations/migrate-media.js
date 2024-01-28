@@ -11,6 +11,12 @@ module.exports = {
         allowNull: false,
       },
 
+      key_word:{
+        type: Sequelize.STRING,
+      },
+      meta_des: {
+        type: Sequelize.STRING,
+      },
       banner_bg: {
         type: Sequelize.STRING,
       },

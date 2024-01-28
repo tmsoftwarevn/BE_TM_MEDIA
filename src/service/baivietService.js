@@ -4,7 +4,9 @@ const insertBaiviet = async (data) => {
   try {
     let c = await db.baiviet.create({
       tieude: data.tieude,
+      key_word: data.key_word,
       meta_des: data.meta_des,
+      mota_ngan: data.mota_ngan,
       noidung: data.noidung,
       thumbnail: data.thumbnail,
     });
@@ -21,7 +23,9 @@ const get_detail_baiviet = async (id) => {
       attributes: [
         "id",
         "tieude",
+        "key_word",
         "meta_des",
+        "mota_ngan",
         "noidung",
         "thumbnail",
         "createdAt",
@@ -39,7 +43,7 @@ const get_detail_baiviet = async (id) => {
 const get_all_baiviet_paginate = async (page, limit) => {
   try {
     page = +page;
-  limit = +limit;
+    limit = +limit;
     let list = await db.baiviet.findAll({
       offset: (page - 1) * limit,
       limit: limit,
@@ -47,7 +51,9 @@ const get_all_baiviet_paginate = async (page, limit) => {
       attributes: [
         "id",
         "tieude",
+        "key_word",
         "meta_des",
+        "mota_ngan",
         "noidung",
         "thumbnail",
         "createdAt",
@@ -66,7 +72,9 @@ const updateBaiviet = async (data, id) => {
     let u = await db.baiviet.update(
       {
         tieude: data.tieude,
+        key_word: data.key_word,
         meta_des: data.meta_des,
+        mota_ngan: data.mota_ngan,
         noidung: data.noidung,
         thumbnail: data.thumbnail,
       },
@@ -74,7 +82,7 @@ const updateBaiviet = async (data, id) => {
         where: { id: id },
       }
     );
-    if (u[0] >0)
+    if (u[0] > 0)
       return {
         DT: "update success",
       };

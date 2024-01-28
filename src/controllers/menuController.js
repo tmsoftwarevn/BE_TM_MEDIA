@@ -25,7 +25,7 @@ const postMenu = async (req, res) => {
 
 const updateMenu = async (req, res) => {
   try {
-    let data = await menuService.updateMenu(req.body.name, req.params.id);
+    let data = await menuService.updateMenu(req.body, req.params.id);
     if (data && data.DT) {
       return res.status(200).json({
         data: "Update thành công",

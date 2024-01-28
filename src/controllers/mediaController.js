@@ -1,7 +1,7 @@
 import mediaService from "../service/mediaService";
 
 const inserMedia = async (req, res) => {
-  const data = await mediaService.insertMedia(req.body.data);
+  const data = await mediaService.insertMedia(req.body);
   if (data) {
     return res.status(201).json({
       data: data,
@@ -32,7 +32,7 @@ const get_detail_media = async (req, res) => {
 
 const updateMedia = async (req, res) => {
     try {
-      let data = await mediaService.updateMedia(req.body.data, req.params.id);
+      let data = await mediaService.updateMedia(req.body, req.params.id);
       if (data && data.DT) {
         return res.status(200).json({
           data: "Update thành công",
