@@ -51,11 +51,11 @@ const postLogin = async (req, res) => {
     );
     if (data && data.DT) {
       return res.status(200).json({
-        data: "Update success",
+        data: "Đổi mật khẩu thành công",
       });
     } else {
       return res.status(400).json({
-        message: data.message,
+        message: "Có lỗi",
       });
     }
   };

@@ -58,4 +58,18 @@ const getMenu_byId = async (id) => {
   }
 };
 
-export default { insertMenuService, updateMenu, deleteMenu, getMenu_byId };
+const get_ActiveMenu  = async()=>{
+  try {
+    let a = await db.menu.findAll(
+      {
+        attributes: ["id", "name"],
+        where: { active: 1},
+        raw: true,
+      }
+    )
+    return a
+  } catch (error) {
+    
+  }
+}
+export default { insertMenuService, updateMenu, deleteMenu, getMenu_byId , get_ActiveMenu};

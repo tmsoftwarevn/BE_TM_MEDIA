@@ -24,6 +24,8 @@ const initApiRouter = (app) => {
   router.put("/menu/:id", menuController.updateMenu);
   router.delete("/menu/:id", menuController.deleteMenu);
   router.get("/menu/:id", menuController.getMenu_byId);
+  router.get("/menu_active", menuController.get_ActiveMenu)
+  
   //account
   router.post("/register", accountController.postRegister);
   router.post("/login", accountController.postLogin);
@@ -58,10 +60,13 @@ const initApiRouter = (app) => {
   router.delete("/baiviet/:id", baivietController.deleteBaiviet);
   router.get("/baiviet/:id", baivietController.get_detail_baiviet);
   router.get(
-    "/baiviet/paginate/:id",
+    "/baiviet-page",
     baivietController.get_all_baiviet_paginate
   );
-
+  router.get(
+    "/listbaiviet",
+    baivietController.get_all_baiviet
+  );
   //upload file img
   router.post("/uploadImg_baiviet", uploadfileController.postFileUploadImage_baiviet);
   router.post("/uploadImg", uploadfileController.postFileUploadImage);

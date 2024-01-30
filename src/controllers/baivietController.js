@@ -32,7 +32,6 @@ const get_detail_baiviet = async (req, res) => {
 
 const get_all_baiviet_paginate = async (req, res) => {
   const { page, limit } = req.query;
-
   const data = await baivietService.get_all_baiviet_paginate(page, limit);
   if (data) {
     return res.status(200).json({
@@ -93,10 +92,25 @@ const deleteBaiviet = async (req, res) => {
   }
 };
 
+const get_all_baiviet = async (req, res) => {
+  const data = await baivietService.get_all_baiviet();
+  if (data) {
+    return res.status(200).json({
+      data: data,
+      EC: 1,
+    });
+  } else {
+    return res.status(400).json({
+      message: "Có lỗi",
+      EC: -1,
+    });
+  }
+};
 export default {
   insertBaiviet,
   get_all_baiviet_paginate,
   get_detail_baiviet,
   updateBaiviet,
   deleteBaiviet,
+  get_all_baiviet,
 };

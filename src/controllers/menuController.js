@@ -81,4 +81,21 @@ const getMenu_byId = async (req, res) => {
     });
   }
 };
-export default { postMenu, updateMenu, deleteMenu, getMenu_byId };
+
+const get_ActiveMenu = async(req, res)=>{
+  const data = await menuService.get_ActiveMenu();
+  if (data) {
+    return res.status(200).json({
+      data: data,
+      EC: 1,
+    });
+  } else {
+    return res.status(400).json({
+      message: "Có lỗi",
+      EC: -1,
+    });
+  }
+}
+
+
+export default { postMenu, updateMenu, deleteMenu, getMenu_byId , get_ActiveMenu};

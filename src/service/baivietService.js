@@ -40,6 +40,7 @@ const get_detail_baiviet = async (id) => {
     console.log(error);
   }
 };
+
 const get_all_baiviet_paginate = async (page, limit) => {
   try {
     page = +page;
@@ -62,7 +63,9 @@ const get_all_baiviet_paginate = async (page, limit) => {
 
       raw: true,
     });
+    
     return list;
+   
   } catch (error) {
     console.log(error);
   }
@@ -102,10 +105,37 @@ const deleteBaiviet = async (id) => {
     console.log(error);
   }
 };
+
+const get_all_baiviet = async () => {
+  try {
+    let g = await db.baiviet.findAll({
+      order: [["createdAt", "asc"]],
+      attributes: [
+        "id",
+        "tieude",
+        "key_word",
+        "meta_des",
+        "mota_ngan",
+        "noidung",
+        "thumbnail",
+        "createdAt",
+        "updatedAt",
+      ],
+
+      raw: true,
+    });
+
+    return g;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export default {
   insertBaiviet,
   get_all_baiviet_paginate,
   get_detail_baiviet,
   updateBaiviet,
   deleteBaiviet,
+  get_all_baiviet
 };
