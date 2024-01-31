@@ -12,6 +12,7 @@ import videonoibatService from "../service/videonoibatService";
 import baivietController from "../controllers/baivietController";
 import postFileUploadImage from "../controllers/uploadfileController";
 import uploadfileController from "../controllers/uploadfileController";
+import trangchuController from "../controllers/trangchuController";
 
 const initApiRouter = (app) => {
   router.get("/", (req, res) => {
@@ -72,7 +73,11 @@ const initApiRouter = (app) => {
   router.post("/uploadImg", uploadfileController.postFileUploadImage);
   router.post("/deleteImg",uploadfileController.deleteImage);
 
-  
+  // trang chủ
+  router.put("/trang-chu",trangchuController.updateTrangchu)
+  router.get("/trang-chu",trangchuController.getTrangchu)
+
+
   return app.use("/api/v1", router);
 };
 
