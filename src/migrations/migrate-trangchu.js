@@ -30,6 +30,9 @@ module.exports = {
      logo:{
         type: Sequelize.STRING,
      },
+     icon_web:{
+      type: Sequelize.STRING,
+   },
      mota_cty:{
         type: Sequelize.TEXT,
      },

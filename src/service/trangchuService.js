@@ -10,6 +10,7 @@ const updateTrangchu = async (data, id) => {
         video_bg: data.video_bg,
         link: data.link,
         logo: data.logo,
+        icon_web: data.icon_web,
         mota_cty: data.mota_cty,
         thuonghieu: data.thuonghieu,
         bg_thongke: data.bg_thongke,

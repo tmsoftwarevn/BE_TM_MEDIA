@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       link: DataTypes.STRING,
       //them
       logo: DataTypes.STRING,
+      icon_web:DataTypes.STRING,
       mota_cty: DataTypes.TEXT,
       thuonghieu: DataTypes.STRING,
       bg_thongke: DataTypes.STRING,
