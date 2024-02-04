@@ -62,6 +62,7 @@ const get_ActiveMenu  = async()=>{
   try {
     let a = await db.menu.findAll(
       {
+        order: [["updatedAt", "desc"]],
         attributes: ["id", "name"],
         where: { active: 1},
         raw: true,

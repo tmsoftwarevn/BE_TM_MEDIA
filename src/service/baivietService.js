@@ -48,7 +48,7 @@ const get_all_baiviet_paginate = async (page, limit) => {
     let list = await db.baiviet.findAll({
       offset: (page - 1) * limit,
       limit: limit,
-      order: [["createdAt", "asc"]],
+      order: [["createdAt", "desc"]],
       attributes: [
         "id",
         "tieude",
@@ -80,6 +80,7 @@ const updateBaiviet = async (data, id) => {
         mota_ngan: data.mota_ngan,
         noidung: data.noidung,
         thumbnail: data.thumbnail,
+        active: data.active
       },
       {
         where: { id: id },
@@ -109,7 +110,7 @@ const deleteBaiviet = async (id) => {
 const get_all_baiviet = async () => {
   try {
     let g = await db.baiviet.findAll({
-      order: [["createdAt", "asc"]],
+      order: [["createdAt", "desc"]],
       attributes: [
         "id",
         "tieude",
@@ -118,6 +119,7 @@ const get_all_baiviet = async () => {
         "mota_ngan",
         "noidung",
         "thumbnail",
+        "active",
         "createdAt",
         "updatedAt",
       ],
@@ -131,11 +133,37 @@ const get_all_baiviet = async () => {
   }
 };
 
+const get_baiviet_trangchu = async(req,res)=>{
+  try {
+    let a = await db.baiviet.findAll(
+      {
+        order: [["updatedAt", "desc"]], ///desc: update mới nhất lên đầu
+        attributes: [
+          "id",
+          "tieude",
+          "key_word",
+          "meta_des",
+          "mota_ngan",
+          "noidung",
+          "thumbnail",
+          "createdAt",
+          "updatedAt",
+        ],
+        where: { active: 1},
+        raw: true,
+      }
+    )
+    return a
+  } catch (error) {
+    console.log(error)
+  }
+}
 export default {
   insertBaiviet,
   get_all_baiviet_paginate,
   get_detail_baiviet,
   updateBaiviet,
   deleteBaiviet,
-  get_all_baiviet
+  get_all_baiviet,
+  get_baiviet_trangchu
 };

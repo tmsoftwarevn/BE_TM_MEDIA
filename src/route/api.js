@@ -68,6 +68,8 @@ const initApiRouter = (app) => {
     "/listbaiviet",
     baivietController.get_all_baiviet
   );
+  router.get("/tintuc-noibat", baivietController.get_baiviet_trangchu)
+  
   //upload file img
   router.post("/uploadImg_baiviet", uploadfileController.postFileUploadImage_baiviet);
   router.post("/uploadImg", uploadfileController.postFileUploadImage);

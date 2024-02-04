@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     mota_ngan:DataTypes.STRING,
     noidung:DataTypes.TEXT,
     thumbnail: DataTypes.STRING,
+    active:DataTypes.INTEGER 
   }, {
     sequelize,
     modelName: 'baiviet',

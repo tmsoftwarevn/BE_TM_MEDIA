@@ -106,6 +106,21 @@ const get_all_baiviet = async (req, res) => {
     });
   }
 };
+
+const get_baiviet_trangchu = async(req, res)=>{
+  const data = await baivietService.get_baiviet_trangchu();
+  if (data) {
+    return res.status(200).json({
+      data: data,
+      EC: 1,
+    });
+  } else {
+    return res.status(400).json({
+      message: "Có lỗi",
+      EC: -1,
+    });
+  }
+}
 export default {
   insertBaiviet,
   get_all_baiviet_paginate,
@@ -113,4 +128,5 @@ export default {
   updateBaiviet,
   deleteBaiviet,
   get_all_baiviet,
+  get_baiviet_trangchu
 };
