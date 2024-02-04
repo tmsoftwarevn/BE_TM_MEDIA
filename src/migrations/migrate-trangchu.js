@@ -11,7 +11,7 @@ module.exports = {
         allowNull: false,
       },
 
-      key_word:{
+      key_word: {
         type: Sequelize.STRING,
       },
       meta_des: {
@@ -27,39 +27,39 @@ module.exports = {
         type: Sequelize.STRING,
       },
       /// thêm
-     logo:{
+      logo: {
         type: Sequelize.STRING,
-     },
-     icon_web:{
-      type: Sequelize.STRING,
-   },
-     mota_cty:{
+      },
+      icon_web: {
+        type: Sequelize.STRING,
+      },
+      mota_cty: {
         type: Sequelize.TEXT,
-     },
-     thuonghieu: {
+      },
+      thuonghieu: {
         type: Sequelize.STRING,
-     },
-     bg_thongke:{
+      },
+      bg_thongke: {
         type: Sequelize.STRING,
-     },
-     s1:{
+      },
+      s1: {
         type: Sequelize.STRING,
-     },
-     s2:{
+      },
+      s2: {
         type: Sequelize.STRING,
-     },
-     s3:{
+      },
+      s3: {
         type: Sequelize.STRING,
-     },
-     t1:{
+      },
+      t1: {
         type: Sequelize.STRING,
-     },
-     t2:{
+      },
+      t2: {
         type: Sequelize.STRING,
-     },
-     t3:{
+      },
+      t3: {
         type: Sequelize.STRING,
-     },
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -67,7 +67,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+        // defaultValue: Sequelize.fn("now"),
       },
     });
   },

@@ -84,6 +84,7 @@ var get_all_video_byId = /*#__PURE__*/function () {
           _context3.prev = 0;
           _context3.next = 3;
           return db.video_noi_bat.findAll({
+            order: [["updatedAt", "desc"]],
             attributes: ["id", "video_bg", "link", "name"],
             where: {
               type_id: id

@@ -13,13 +13,13 @@ module.exports = {
       tieude: {
         type: Sequelize.STRING,
       },
-      key_word:{
+      key_word: {
         type: Sequelize.STRING,
       },
       meta_des: {
         type: Sequelize.STRING,
       },
-      mota_ngan:{
+      mota_ngan: {
         type: Sequelize.STRING,
       },
       noidung: {
@@ -28,7 +28,7 @@ module.exports = {
       thumbnail: {
         type: Sequelize.STRING,
       },
-      active:{
+      active: {
         type: Sequelize.INTEGER,
       },
       createdAt: {
@@ -38,7 +38,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+        // defaultValue: Sequelize.fn("now"),
       },
     });
   },

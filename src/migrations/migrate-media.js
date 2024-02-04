@@ -11,7 +11,7 @@ module.exports = {
         allowNull: false,
       },
 
-      key_word:{
+      key_word: {
         type: Sequelize.STRING,
       },
       meta_des: {
@@ -39,7 +39,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+        // defaultValue: Sequelize.fn("now"),
       },
     });
   },

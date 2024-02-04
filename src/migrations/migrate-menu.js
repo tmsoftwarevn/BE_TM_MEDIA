@@ -15,7 +15,7 @@ module.exports = {
       type_id: {
         type: Sequelize.INTEGER,
       },
-      active:{
+      active: {
         type: Sequelize.INTEGER,
       },
       createdAt: {
@@ -25,7 +25,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+        // defaultValue: Sequelize.fn("now"),
       },
     });
   },

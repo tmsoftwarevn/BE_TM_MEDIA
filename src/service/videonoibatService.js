@@ -32,6 +32,7 @@ const get_detail_video = async (id) => {
 const get_all_video_byId = async (id) => {
     try {
       let g = await db.video_noi_bat.findAll({
+        order: [["updatedAt", "desc"]],
         attributes: ["id","video_bg", "link", "name"],
         where: { type_id: id },
         raw: true,
