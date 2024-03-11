@@ -1,4 +1,6 @@
 const db = require("../models");
+import { Op } from "sequelize";
+import { sequelize } from "../models/index";
 
 const insertBaiviet = async (data) => {
   try {
@@ -9,6 +11,7 @@ const insertBaiviet = async (data) => {
       mota_ngan: data.mota_ngan,
       noidung: data.noidung,
       thumbnail: data.thumbnail,
+      slug: data.slug,
     });
     c = c.get({ plain: true });
     return c;
@@ -17,7 +20,7 @@ const insertBaiviet = async (data) => {
   }
 };
 
-const get_detail_baiviet = async (id) => {
+const get_detail_baiviet = async (slug) => {
   try {
     let g = await db.baiviet.findOne({
       attributes: [
@@ -28,10 +31,12 @@ const get_detail_baiviet = async (id) => {
         "mota_ngan",
         "noidung",
         "thumbnail",
+        "slug",
+        "view",
         "createdAt",
         "updatedAt",
       ],
-      where: { id: id },
+      where: { slug: slug },
       raw: true,
     });
 
@@ -57,15 +62,16 @@ const get_all_baiviet_paginate = async (page, limit) => {
         "mota_ngan",
         "noidung",
         "thumbnail",
+        "slug",
+        "view",
         "createdAt",
         "updatedAt",
       ],
 
       raw: true,
     });
-    
+
     return list;
-   
   } catch (error) {
     console.log(error);
   }
@@ -80,7 +86,9 @@ const updateBaiviet = async (data, id) => {
         mota_ngan: data.mota_ngan,
         noidung: data.noidung,
         thumbnail: data.thumbnail,
-        active: data.active
+        active: data.active,
+        slug: data.slug,
+        uu_tien: data.uu_tien
       },
       {
         where: { id: id },
@@ -120,6 +128,9 @@ const get_all_baiviet = async () => {
         "noidung",
         "thumbnail",
         "active",
+        "slug",
+        "view",
+        "uu_tien",
         "createdAt",
         "updatedAt",
       ],
@@ -133,31 +144,77 @@ const get_all_baiviet = async () => {
   }
 };
 
-const get_baiviet_trangchu = async(req,res)=>{
+const get_baiviet_trangchu = async (req, res) => {
   try {
-    let a = await db.baiviet.findAll(
+    let a = await db.baiviet.findAll({
+      order: [["uu_tien", "asc"]],      ///desc: update mới nhất lên đầu, theo ngày
+      attributes: [
+        "id",
+        "tieude",
+        "key_word",
+        "meta_des",
+        "mota_ngan",
+        "noidung",
+        "thumbnail",
+        "slug",
+        "view",
+        "uu_tien",
+        "createdAt",
+        "updatedAt",
+      ],
+      where: { active: 1 },
+      raw: true,
+    });
+    return a;
+  } catch (error) {
+    console.log(error);
+  }
+};
+const up_view_baiviet = async (id) => {
+  try {
+    let u = await db.baiviet.update(
       {
-        order: [["updatedAt", "desc"]], ///desc: update mới nhất lên đầu
-        attributes: [
-          "id",
-          "tieude",
-          "key_word",
-          "meta_des",
-          "mota_ngan",
-          "noidung",
-          "thumbnail",
-          "createdAt",
-          "updatedAt",
-        ],
-        where: { active: 1},
-        raw: true,
+        view: sequelize.literal(`view + 1`),
+      },
+      {
+        where: { id: id },
       }
-    )
-    return a
+    );
+    if (u[0] > 0)
+      return {
+        DT: "update success",
+      };
+  } catch (error) {
+    console.log(error);
+  }
+};
+const search_baiviet = async (string, page, limit) => {
+  page = +page;
+  limit = +limit;
+  try {
+    let count = await db.baiviet.findAll({
+      where: {
+        tieude: { [Op.like]: `%${string}%`},
+      },
+      raw: true,
+    })
+
+    let s = await db.baiviet.findAll({
+      offset: (page - 1) * limit,
+      limit: limit,
+      where: {
+        tieude: { [Op.like]: `%${string}%`},
+      },
+      raw: true,
+    });
+    return {
+      total: count.length,
+      list: s
+    }
   } catch (error) {
     console.log(error)
   }
-}
+};
 export default {
   insertBaiviet,
   get_all_baiviet_paginate,
@@ -165,5 +222,7 @@ export default {
   updateBaiviet,
   deleteBaiviet,
   get_all_baiviet,
-  get_baiviet_trangchu
+  get_baiviet_trangchu,
+  up_view_baiviet,
+  search_baiviet,
 };

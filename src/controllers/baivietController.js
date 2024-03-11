@@ -16,7 +16,7 @@ const insertBaiviet = async (req, res) => {
 };
 
 const get_detail_baiviet = async (req, res) => {
-  const data = await baivietService.get_detail_baiviet(req.params.id);
+  const data = await baivietService.get_detail_baiviet(req.params.slug);
   if (data) {
     return res.status(200).json({
       data: data,
@@ -107,7 +107,7 @@ const get_all_baiviet = async (req, res) => {
   }
 };
 
-const get_baiviet_trangchu = async(req, res)=>{
+const get_baiviet_trangchu = async (req, res) => {
   const data = await baivietService.get_baiviet_trangchu();
   if (data) {
     return res.status(200).json({
@@ -120,7 +120,55 @@ const get_baiviet_trangchu = async(req, res)=>{
       EC: -1,
     });
   }
-}
+};
+
+const up_view_baiviet = async (req, res) => {
+  try {
+    let data = await baivietService.up_view_baiviet(req.params.id);
+    if (data && data.DT) {
+      return res.status(200).json({
+        data: "Update thành công",
+        EC: 1,
+      });
+    } else {
+      return res.status(400).json({
+        message: "Không update được",
+        EC: -1,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Wrong somthing",
+      EC: -1,
+    });
+  }
+};
+
+const search_baiviet = async (req, res) => {
+  try {
+    const { search, page, limit } = req.query;
+    let data = await baivietService.search_baiviet(search, page, limit);
+    if (data && data.list) {
+      return res.status(200).json({
+        data: data,
+        EC: 1,
+      });
+    } else {
+      return res.status(400).json({
+        EC: -1,
+        message: "Có lỗi",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Wrong something",
+      EC: -1,
+    });
+  }
+};
+
 export default {
   insertBaiviet,
   get_all_baiviet_paginate,
@@ -128,5 +176,7 @@ export default {
   updateBaiviet,
   deleteBaiviet,
   get_all_baiviet,
-  get_baiviet_trangchu
+  get_baiviet_trangchu,
+  up_view_baiviet,
+  search_baiviet,
 };

@@ -41,10 +41,10 @@ const initApiRouter = (app) => {
   router.get("/lienhe", lienheController.getAll_Lienhe);
 
   //media
-  router.get("/media/:id", mediaController.get_detail_media);
+  router.get("/media/:slug", mediaController.get_detail_media);
   router.post("/media", mediaController.inserMedia);
-  router.put("/media/:id", mediaController.updateMedia);
-
+  router.put("/media/:slug", mediaController.updateMedia);
+  router.put("/slug_media", mediaController.updateSlugMedia)
   // video noi bat
   router.get(
     "/video-noibat/detail/:id",
@@ -59,7 +59,9 @@ const initApiRouter = (app) => {
   router.post("/baiviet", baivietController.insertBaiviet);
   router.put("/baiviet/:id", baivietController.updateBaiviet);
   router.delete("/baiviet/:id", baivietController.deleteBaiviet);
-  router.get("/baiviet/:id", baivietController.get_detail_baiviet);
+  router.get("/baiviet/:slug", baivietController.get_detail_baiviet);
+  router.put("/baiviet_view/:id", baivietController.up_view_baiviet);
+  router.get("/search-baiviet", baivietController.search_baiviet);
   router.get(
     "/baiviet-page",
     baivietController.get_all_baiviet_paginate

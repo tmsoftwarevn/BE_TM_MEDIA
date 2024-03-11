@@ -16,7 +16,7 @@ const inserMedia = async (req, res) => {
 };
 
 const get_detail_media = async (req, res) => {
-  const data = await mediaService.get_detail_media(req.params.id);
+  const data = await mediaService.get_detail_media(req.params.slug);
   if (data) {
     return res.status(200).json({
       data: data,
@@ -32,7 +32,7 @@ const get_detail_media = async (req, res) => {
 
 const updateMedia = async (req, res) => {
     try {
-      let data = await mediaService.updateMedia(req.body, req.params.id);
+      let data = await mediaService.updateMedia(req.body, req.params.slug);
       if (data && data.DT) {
         return res.status(200).json({
           data: "Update thành công",
@@ -52,4 +52,26 @@ const updateMedia = async (req, res) => {
       });
     }
   };
-export default { inserMedia, get_detail_media , updateMedia};
+const updateSlugMedia = async(req, res)=>{
+  try {
+    let data = await mediaService.updateSlugMedia(req.body);
+    if (data && data.DT) {
+      return res.status(200).json({
+        data: "Update thành công",
+        EC: 1,
+      });
+    } else {
+      return res.status(400).json({
+        message: "Không update được",
+        EC: -1,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Wrong somthing",
+      EC: -1,
+    });
+  }
+}
+export default { inserMedia, get_detail_media , updateMedia, updateSlugMedia};

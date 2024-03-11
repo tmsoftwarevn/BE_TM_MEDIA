@@ -10,6 +10,8 @@ const insertMedia = async (data) => {
       link: data.link,
       noidung: data.noidung,
       type_id: data.type_id,
+      slug: data.slug,
+      title_menu:data.title_menu
     });
     c = c.get({ plain: true });
     if (c) return c;
@@ -18,7 +20,7 @@ const insertMedia = async (data) => {
   }
 };
 
-const get_detail_media = async (id) => {
+const get_detail_media = async (slug) => {
   try {
     let g = await db.media.findOne({
       attributes: [
@@ -29,8 +31,9 @@ const get_detail_media = async (id) => {
         "video_bg",
         "link",
         "noidung",
+        "title_menu"
       ],
-      where: { type_id: id },
+      where: { slug: slug },
       raw: true,
     });
     return g;
@@ -39,7 +42,7 @@ const get_detail_media = async (id) => {
   }
 };
 
-const updateMedia = async (data, id) => {
+const updateMedia = async (data, slug) => {
   // console.log('dataaaa', data);
   try {
     let u = await db.media.update(
@@ -52,7 +55,7 @@ const updateMedia = async (data, id) => {
         noidung: data.noidung,
       },
       {
-        where: { type_id: id },
+        where: { slug: slug },
       }
     );
 
@@ -64,4 +67,25 @@ const updateMedia = async (data, id) => {
     console.log(error);
   }
 };
-export default { insertMedia, get_detail_media, updateMedia };
+const updateSlugMedia = async(data)=>{
+  
+  try {
+    let u = await db.media.update(
+      {
+        slug: data.slug,
+        title_menu: data.title_menu
+      },
+      {
+        where: { type_id: data.id },
+      }
+    );
+
+    if (u[0] > 0)
+      return {
+        DT: "update success",
+      };
+  } catch (error) {
+    console.log(error);
+  }
+}
+export default { insertMedia, get_detail_media, updateMedia, updateSlugMedia };

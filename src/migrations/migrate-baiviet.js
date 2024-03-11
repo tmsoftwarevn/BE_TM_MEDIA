@@ -31,6 +31,15 @@ module.exports = {
       active: {
         type: Sequelize.INTEGER,
       },
+      slug:{
+        type: Sequelize.STRING,
+      },
+      view:{
+        type: Sequelize.INTEGER,
+      },
+      uu_tien:{
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
