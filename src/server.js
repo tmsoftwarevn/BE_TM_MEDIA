@@ -3,7 +3,7 @@ import configViewEngine from "./config/viewEngine";
 import initApiRouter from "./route/api";
 import bodyParser from "body-parser";
 import connectDB from "./config/connectDB";
-import cookieParser from "cookie-parser";
+const path = require("path");
 
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
@@ -18,10 +18,9 @@ app.use(bodyParser.json());
 app.use(fileUpload());
 configViewEngine(app);
 
-
 app.use(
   cors({
-    origin: process.env.PORT_URL,
+    origin: [process.env.PORT_URL, "http://tmmedia.pro/"],
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
@@ -29,7 +28,6 @@ app.use(
 
 connectDB();
 initApiRouter(app);
-
 
 app.listen(PORT, () => {
   console.log("run app success , port is: ", +PORT);
